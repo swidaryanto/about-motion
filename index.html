@@ -304,8 +304,8 @@
         will-change: transform;
         text-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
         font-optical-sizing: auto;
-        font-variation-settings: "opsz" 28, "wght" 520;
-        animation: curatedPulse var(--duration-decorative) var(--ease-decorative) infinite;
+        font-variation-settings: "opsz" 28, "wght" 540;
+        animation: curatedPulse 3.8s cubic-bezier(0.22, 1, 0.36, 1) infinite;
       }
 
       .curated-title.dragging {
@@ -795,15 +795,17 @@
       @keyframes curatedPulse {
         0%,
         100% {
-          font-variation-settings: "opsz" 28, "wght" 500;
+          font-variation-settings: "opsz" 28, "wght" 540;
           letter-spacing: -0.015em;
           transform: translateY(0);
+          text-shadow: 0 1px 2px rgba(0, 0, 0, 0.07);
         }
 
         50% {
-          font-variation-settings: "opsz" 28, "wght" 760;
-          letter-spacing: -0.03em;
-          transform: translateY(-0.5px);
+          font-variation-settings: "opsz" 28, "wght" 650;
+          letter-spacing: -0.021em;
+          transform: translateY(-1px);
+          text-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
         }
       }
 
@@ -2405,7 +2407,6 @@
           React.createElement(CuratedTitle, { motionMode, entranceReady }),
           React.createElement(UnifiedLoadingPanel, { motionMode, entranceReady }),
           React.createElement(ToastPanel, { motionMode, entranceReady }),
-          React.createElement(DecisionDiffPanel, { motionMode, entranceReady }),
           React.createElement(MotionExamples, { motionMode, entranceReady }),
           React.createElement(EmilModalDemo)
         );
