@@ -736,9 +736,9 @@
         width: 100%;
         height: 12px;
         border-radius: 999px;
-        background: linear-gradient(100deg, #dfdfdf 20%, #f6f6f6 50%, #dfdfdf 80%);
-        background-size: 200% 100%;
-        animation: skeletonShimmer 1.1s linear infinite;
+        background: linear-gradient(100deg, #e3e3e3 24%, #efefef 50%, #e3e3e3 76%);
+        background-size: 240% 100%;
+        animation: skeletonShimmer 2.2s cubic-bezier(0.33, 1, 0.68, 1) infinite;
         border: 1px solid #d9d9d9;
       }
 
@@ -2273,22 +2273,35 @@
       function MotionExamples({ entranceReady, motionMode }) {
         const [index, setIndex] = useState(0);
         const [progressStep, setProgressStep] = useState(0);
+        const [progressDirection, setProgressDirection] = useState(1);
         const [showSuccess, setShowSuccess] = useState(false);
         const drag = useDraggablePosition(getDefaultMotionExamplesPos);
         const current = SIMPLE_MOTION_LIST[index];
 
         useEffect(() => {
           setProgressStep(0);
+          setProgressDirection(1);
           setShowSuccess(false);
         }, [index]);
 
         useEffect(() => {
           if (current.id !== "progress") return;
           const id = window.setInterval(() => {
-            setProgressStep((prev) => (prev + 1) % 3);
-          }, 750);
+            setProgressStep((prev) => {
+              const next = prev + progressDirection;
+              if (next >= 2) {
+                setProgressDirection(-1);
+                return 2;
+              }
+              if (next <= 0) {
+                setProgressDirection(1);
+                return 0;
+              }
+              return next;
+            });
+          }, 980);
           return () => window.clearInterval(id);
-        }, [current.id]);
+        }, [current.id, progressDirection]);
 
         useEffect(() => {
           if (current.id !== "success") return;
@@ -2327,8 +2340,8 @@
                       opacity: step <= progressStep ? 1 : 0.18
                     },
                     transition: {
-                      duration: 0.65,
-                      ease: [0.22, 1, 0.36, 1]
+                      duration: 0.9,
+                      ease: [0.32, 0.72, 0, 1]
                     }
                   })
                 )
