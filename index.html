@@ -421,6 +421,7 @@
         display: flex;
         align-items: center;
         gap: 10px;
+        align-self: center;
       }
 
       .toast-control {
@@ -455,6 +456,7 @@
       }
 
       .toast-reset {
+        height: 36px;
         min-width: auto;
         padding: 0 4px;
         border: none;
@@ -462,6 +464,9 @@
         background: transparent;
         box-shadow: none;
         color: #b25e5e;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
       }
 
       .toast-reset:hover {
@@ -719,6 +724,74 @@
         border-top: 1px solid #e3e3e3;
       }
 
+      .motion-skeleton {
+        width: 240px;
+        max-width: 100%;
+        display: grid;
+        gap: 8px;
+        justify-self: center;
+      }
+
+      .skeleton-line {
+        width: 100%;
+        height: 12px;
+        border-radius: 999px;
+        background: linear-gradient(100deg, #dfdfdf 20%, #f6f6f6 50%, #dfdfdf 80%);
+        background-size: 200% 100%;
+        animation: skeletonShimmer 1.1s linear infinite;
+        border: 1px solid #d9d9d9;
+      }
+
+      .skeleton-line.short {
+        width: 58%;
+        justify-self: start;
+      }
+
+      .skeleton-line.medium {
+        width: 74%;
+        justify-self: start;
+      }
+
+      .motion-progress {
+        width: 250px;
+        max-width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        justify-self: center;
+      }
+
+      .progress-step {
+        flex: 1;
+        height: 8px;
+        border-radius: 999px;
+        background: #d2d2d2;
+        overflow: hidden;
+        border: 1px solid #c8c8c8;
+      }
+
+      .progress-step-fill {
+        width: 100%;
+        height: 100%;
+        background: #242424;
+        transform-origin: left center;
+      }
+
+      .motion-success {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        border: 1px solid #d5d5d5;
+        background: #ffffff;
+        display: grid;
+        place-items: center;
+      }
+
+      .motion-success-icon {
+        width: 32px;
+        height: 32px;
+      }
+
       .modal-demo-button:hover {
         background: rgba(255, 255, 255, 0.96);
       }
@@ -887,6 +960,16 @@
         }
       }
 
+      @keyframes skeletonShimmer {
+        from {
+          background-position: 200% 0;
+        }
+
+        to {
+          background-position: -200% 0;
+        }
+      }
+
       @media (prefers-reduced-motion: reduce) {
         .curated-title {
           animation: none;
@@ -959,17 +1042,21 @@
         }
 
         .toast-controls {
-          flex-wrap: wrap;
-          align-items: stretch;
+          flex-wrap: nowrap;
+          align-items: center;
+          justify-content: space-between;
+          gap: 8px;
         }
 
         .toast-controls-left,
         .toast-controls-right {
-          width: 100%;
+          width: auto;
+          flex: 0 0 auto;
         }
 
         .toast-controls-right {
           justify-content: flex-end;
+          margin-left: auto;
         }
 
         .toast-control {
@@ -2161,129 +2248,127 @@
 
       const SIMPLE_MOTION_LIST = [
         {
-          name: "Hover Lift",
-          duration: "160ms",
-          easing: "cubic-bezier(0.22,1,0.36,1)",
-          note: "Use on cards or buttons to signal interactivity."
+          id: "skeleton",
+          name: "Skeleton Shimmer",
+          duration: "1100ms",
+          easing: "linear",
+          note: "Use while content is loading."
         },
         {
-          name: "Press Down",
-          duration: "110ms",
-          easing: "cubic-bezier(0.2,0,0.2,1)",
-          note: "Use on click/tap with a tiny scale down."
+          id: "progress",
+          name: "Progress Step Transitions",
+          duration: "650ms",
+          easing: "cubic-bezier(0.22,1,0.36,1)",
+          note: "Use for multi-step loading or onboarding."
+        },
+        {
+          id: "success",
+          name: "Success Checkmark Draw",
+          duration: "500ms",
+          easing: "cubic-bezier(0.22,1,0.36,1)",
+          note: "Use to confirm completion."
         }
       ];
 
       function MotionExamples({ entranceReady, motionMode }) {
         const [index, setIndex] = useState(0);
-        const [showMiniModal, setShowMiniModal] = useState(false);
-        const [showMiniToast, setShowMiniToast] = useState(false);
+        const [progressStep, setProgressStep] = useState(0);
+        const [showSuccess, setShowSuccess] = useState(false);
         const drag = useDraggablePosition(getDefaultMotionExamplesPos);
         const current = SIMPLE_MOTION_LIST[index];
 
         useEffect(() => {
-          setShowMiniModal(false);
-          setShowMiniToast(false);
+          setProgressStep(0);
+          setShowSuccess(false);
         }, [index]);
 
         useEffect(() => {
-          if (current.name !== "Toast Exit") return;
-          setShowMiniToast(true);
-          const id = window.setTimeout(() => setShowMiniToast(false), 1200);
+          if (current.id !== "progress") return;
+          const id = window.setInterval(() => {
+            setProgressStep((prev) => (prev + 1) % 3);
+          }, 750);
+          return () => window.clearInterval(id);
+        }, [current.id]);
+
+        useEffect(() => {
+          if (current.id !== "success") return;
+          const id = window.setTimeout(() => setShowSuccess(true), 80);
           return () => window.clearTimeout(id);
-        }, [current.name]);
+        }, [current.id]);
 
         const next = () => setIndex((prev) => (prev + 1) % SIMPLE_MOTION_LIST.length);
         const prev = () => setIndex((prev) => (prev - 1 + SIMPLE_MOTION_LIST.length) % SIMPLE_MOTION_LIST.length);
         const stopDragOnControl = (event) => event.stopPropagation();
 
         const renderExample = () => {
-          if (current.name === "List Stagger") {
+          if (current.id === "skeleton") {
             return React.createElement(
               "div",
-              { className: "motion-example-list" },
-              ["Row one", "Row two", "Row three"].map((label, rowIndex) =>
+              { className: "motion-skeleton" },
+              React.createElement("div", { className: "skeleton-line" }),
+              React.createElement("div", { className: "skeleton-line medium" }),
+              React.createElement("div", { className: "skeleton-line short" })
+            );
+          }
+
+          if (current.id === "progress") {
+            return React.createElement(
+              "div",
+              { className: "motion-progress" },
+              [0, 1, 2].map((step) =>
                 React.createElement(
-                  motion.div,
-                  {
-                    key: `${current.name}-${rowIndex}-${index}`,
-                    className: "motion-example-row",
-                    initial: { opacity: 0, y: 8 },
-                    animate: { opacity: 1, y: 0 },
-                    transition: { duration: 0.22, delay: rowIndex * 0.04, ease: [0.22, 1, 0.36, 1] }
-                  },
-                  label
+                  "div",
+                  { key: `step-${step}`, className: "progress-step" },
+                  React.createElement(motion.div, {
+                    className: "progress-step-fill",
+                    initial: false,
+                    animate: {
+                      scaleX: step <= progressStep ? 1 : 0,
+                      opacity: step <= progressStep ? 1 : 0.18
+                    },
+                    transition: {
+                      duration: 0.65,
+                      ease: [0.22, 1, 0.36, 1]
+                    }
+                  })
                 )
               )
             );
           }
 
-          if (current.name === "Modal Open") {
+          if (current.id === "success") {
             return React.createElement(
-              React.Fragment,
-              null,
+              "div",
+              { className: "motion-success" },
               React.createElement(
-                "button",
+                motion.svg,
                 {
-                  className: "toast-control",
-                  type: "button",
-                  onPointerDown: stopDragOnControl,
-                  onClick: () => setShowMiniModal((prev) => !prev)
+                  className: "motion-success-icon",
+                  viewBox: "0 0 24 24",
+                  fill: "none",
+                  initial: false
                 },
-                showMiniModal ? "Close mini modal" : "Open mini modal"
-              ),
-              React.createElement(
-                AnimatePresence,
-                null,
-                showMiniModal
-                  ? React.createElement(
-                      motion.div,
-                      {
-                        key: `mini-modal-${index}`,
-                        className: "motion-example-block",
-                        initial: { opacity: 0, y: 10, scale: 0.95 },
-                        animate: { opacity: 1, y: 0, scale: 1 },
-                        exit: { opacity: 0, y: 6, scale: 0.98 },
-                        transition: { duration: 0.36, ease: [0.32, 0.72, 0, 1] },
-                        style: { marginTop: "10px" }
-                      },
-                      "Modal"
-                    )
-                  : null
+                React.createElement(motion.circle, {
+                  cx: "12",
+                  cy: "12",
+                  r: "9",
+                  stroke: "#1f1f1f",
+                  strokeWidth: "1.5",
+                  initial: { pathLength: 0, opacity: 0.5 },
+                  animate: { pathLength: showSuccess ? 1 : 0, opacity: showSuccess ? 1 : 0.5 },
+                  transition: { duration: 0.36, ease: [0.22, 1, 0.36, 1] }
+                }),
+                React.createElement(motion.path, {
+                  d: "M7 12.5l3.1 3.1L17 8.8",
+                  stroke: "#1f1f1f",
+                  strokeWidth: "1.9",
+                  strokeLinecap: "round",
+                  strokeLinejoin: "round",
+                  initial: { pathLength: 0, opacity: 0 },
+                  animate: { pathLength: showSuccess ? 1 : 0, opacity: showSuccess ? 1 : 0 },
+                  transition: { duration: 0.5, delay: 0.08, ease: [0.22, 1, 0.36, 1] }
+                })
               )
-            );
-          }
-
-          if (current.name === "Toast Exit") {
-            return React.createElement(
-              AnimatePresence,
-              null,
-              showMiniToast
-                ? React.createElement(
-                    motion.div,
-                    {
-                      key: `mini-toast-${index}`,
-                      className: "motion-example-toast",
-                      initial: { opacity: 0, y: 10 },
-                      animate: { opacity: 1, y: 0 },
-                      exit: { opacity: 0, y: -8 },
-                      transition: { duration: 0.2, ease: [0.22, 1, 0.36, 1] }
-                    },
-                    "Saved successfully."
-                  )
-                : React.createElement(
-                    "button",
-                    {
-                      className: "toast-control",
-                      type: "button",
-                      onPointerDown: stopDragOnControl,
-                      onClick: () => {
-                        setShowMiniToast(true);
-                        window.setTimeout(() => setShowMiniToast(false), 1200);
-                      }
-                    },
-                    "Replay toast"
-                  )
             );
           }
 
