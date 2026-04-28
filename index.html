@@ -234,16 +234,17 @@
       .dot-pulse {
         display: inline-flex;
         align-items: center;
-        gap: 6px;
+        gap: 4px;
       }
 
       .dot-pulse-dot {
-        width: 5px;
-        height: 5px;
+        width: 3px;
+        height: 3px;
         border-radius: 50%;
-        background: var(--braille-spinner);
-        opacity: 0.32;
-        animation: dotPulse 880ms var(--ease-utility) infinite;
+        background: color-mix(in srgb, var(--braille-spinner) 92%, white 8%);
+        opacity: 0.16;
+        box-shadow: 0 0 0 0.5px color-mix(in srgb, var(--braille-spinner) 28%, transparent);
+        animation: dotPulse 920ms steps(1, end) infinite;
       }
 
       .dot-pulse-dot:nth-child(2) {
@@ -253,6 +254,58 @@
       .dot-pulse-dot:nth-child(3) {
         animation-delay: 240ms;
       }
+
+      .dot-matrix {
+        display: inline-grid;
+        gap: 2px;
+        align-items: center;
+        justify-items: center;
+      }
+
+      .dot-matrix-3x3 {
+        grid-template-columns: repeat(3, 3px);
+      }
+
+      .dot-matrix-perimeter {
+        grid-template-columns: repeat(3, 3px);
+      }
+
+      .dot-matrix-dot {
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+        background: color-mix(in srgb, var(--braille-spinner) 94%, white 6%);
+        opacity: 0.12;
+        box-shadow: 0 0 0 0.5px color-mix(in srgb, var(--braille-spinner) 22%, transparent);
+      }
+
+      .dot-matrix-3x3 .dot-matrix-dot {
+        animation: dotMatrixScan 1500ms steps(1, end) infinite;
+      }
+
+      .dot-matrix-3x3 .dot-matrix-dot:nth-child(1) { animation-delay: 0ms; }
+      .dot-matrix-3x3 .dot-matrix-dot:nth-child(2) { animation-delay: 70ms; }
+      .dot-matrix-3x3 .dot-matrix-dot:nth-child(3) { animation-delay: 140ms; }
+      .dot-matrix-3x3 .dot-matrix-dot:nth-child(4) { animation-delay: 280ms; }
+      .dot-matrix-3x3 .dot-matrix-dot:nth-child(5) { animation-delay: 350ms; }
+      .dot-matrix-3x3 .dot-matrix-dot:nth-child(6) { animation-delay: 420ms; }
+      .dot-matrix-3x3 .dot-matrix-dot:nth-child(7) { animation-delay: 560ms; }
+      .dot-matrix-3x3 .dot-matrix-dot:nth-child(8) { animation-delay: 630ms; }
+      .dot-matrix-3x3 .dot-matrix-dot:nth-child(9) { animation-delay: 700ms; }
+
+      .dot-matrix-perimeter .dot-matrix-dot {
+        animation: dotMatrixSweep 1320ms steps(1, end) infinite;
+      }
+
+      .dot-matrix-perimeter .dot-matrix-dot:nth-child(1) { animation-delay: 0ms; }
+      .dot-matrix-perimeter .dot-matrix-dot:nth-child(2) { animation-delay: 90ms; }
+      .dot-matrix-perimeter .dot-matrix-dot:nth-child(3) { animation-delay: 180ms; }
+      .dot-matrix-perimeter .dot-matrix-dot:nth-child(6) { animation-delay: 270ms; }
+      .dot-matrix-perimeter .dot-matrix-dot:nth-child(9) { animation-delay: 360ms; }
+      .dot-matrix-perimeter .dot-matrix-dot:nth-child(8) { animation-delay: 450ms; }
+      .dot-matrix-perimeter .dot-matrix-dot:nth-child(7) { animation-delay: 540ms; }
+      .dot-matrix-perimeter .dot-matrix-dot:nth-child(4) { animation-delay: 630ms; }
+      .dot-matrix-perimeter .dot-matrix-dot:nth-child(5) { animation-delay: 720ms; }
 
       .top-progress {
         position: fixed;
@@ -940,13 +993,53 @@
       @keyframes dotPulse {
         0%,
         100% {
-          transform: translateY(0) scale(0.9);
-          opacity: 0.28;
+          transform: scale(0.9);
+          opacity: 0.16;
         }
 
-        50% {
-          transform: translateY(-1px) scale(1.1);
+        34% {
+          transform: scale(1.08);
+          opacity: 0.88;
+        }
+      }
+
+      @keyframes dotMatrixScan {
+        0%,
+        100% {
+          transform: scale(0.88);
+          opacity: 0.08;
+        }
+
+        18% {
+          transform: scale(1.08);
           opacity: 1;
+        }
+
+        36% {
+          transform: scale(0.96);
+          opacity: 0.42;
+        }
+      }
+
+      @keyframes dotMatrixSweep {
+        0% {
+          transform: scale(0.88);
+          opacity: 0.08;
+        }
+
+        22% {
+          transform: scale(1.06);
+          opacity: 0.92;
+        }
+
+        44% {
+          transform: scale(0.96);
+          opacity: 0.34;
+        }
+
+        100% {
+          transform: scale(0.88);
+          opacity: 0.08;
         }
       }
 
@@ -1948,6 +2041,36 @@
               React.createElement("span", { className: "dot-pulse-dot" }),
               React.createElement("span", { className: "dot-pulse-dot" }),
               React.createElement("span", { className: "dot-pulse-dot" })
+            )
+          ),
+          React.createElement(
+            "div",
+            { className: "loading-suite-row" },
+            React.createElement(
+              "div",
+              { className: "dot-matrix dot-matrix-3x3", "aria-hidden": "true" },
+              React.createElement("span", { className: "dot-matrix-dot" }),
+              React.createElement("span", { className: "dot-matrix-dot" }),
+              React.createElement("span", { className: "dot-matrix-dot" }),
+              React.createElement("span", { className: "dot-matrix-dot" }),
+              React.createElement("span", { className: "dot-matrix-dot" }),
+              React.createElement("span", { className: "dot-matrix-dot" }),
+              React.createElement("span", { className: "dot-matrix-dot" }),
+              React.createElement("span", { className: "dot-matrix-dot" }),
+              React.createElement("span", { className: "dot-matrix-dot" })
+            ),
+            React.createElement(
+              "div",
+              { className: "dot-matrix dot-matrix-perimeter", "aria-hidden": "true" },
+              React.createElement("span", { className: "dot-matrix-dot" }),
+              React.createElement("span", { className: "dot-matrix-dot" }),
+              React.createElement("span", { className: "dot-matrix-dot" }),
+              React.createElement("span", { className: "dot-matrix-dot" }),
+              React.createElement("span", { className: "dot-matrix-dot" }),
+              React.createElement("span", { className: "dot-matrix-dot" }),
+              React.createElement("span", { className: "dot-matrix-dot" }),
+              React.createElement("span", { className: "dot-matrix-dot" }),
+              React.createElement("span", { className: "dot-matrix-dot" })
             )
           )
         );
