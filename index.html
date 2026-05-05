@@ -266,10 +266,6 @@
         grid-template-columns: repeat(3, 3px);
       }
 
-      .dot-matrix-perimeter {
-        grid-template-columns: repeat(3, 3px);
-      }
-
       .dot-matrix-dot {
         width: 3px;
         height: 3px;
@@ -292,20 +288,6 @@
       .dot-matrix-3x3 .dot-matrix-dot:nth-child(7) { animation-delay: 560ms; }
       .dot-matrix-3x3 .dot-matrix-dot:nth-child(8) { animation-delay: 630ms; }
       .dot-matrix-3x3 .dot-matrix-dot:nth-child(9) { animation-delay: 700ms; }
-
-      .dot-matrix-perimeter .dot-matrix-dot {
-        animation: dotMatrixSweep 1320ms steps(1, end) infinite;
-      }
-
-      .dot-matrix-perimeter .dot-matrix-dot:nth-child(1) { animation-delay: 0ms; }
-      .dot-matrix-perimeter .dot-matrix-dot:nth-child(2) { animation-delay: 90ms; }
-      .dot-matrix-perimeter .dot-matrix-dot:nth-child(3) { animation-delay: 180ms; }
-      .dot-matrix-perimeter .dot-matrix-dot:nth-child(6) { animation-delay: 270ms; }
-      .dot-matrix-perimeter .dot-matrix-dot:nth-child(9) { animation-delay: 360ms; }
-      .dot-matrix-perimeter .dot-matrix-dot:nth-child(8) { animation-delay: 450ms; }
-      .dot-matrix-perimeter .dot-matrix-dot:nth-child(7) { animation-delay: 540ms; }
-      .dot-matrix-perimeter .dot-matrix-dot:nth-child(4) { animation-delay: 630ms; }
-      .dot-matrix-perimeter .dot-matrix-dot:nth-child(5) { animation-delay: 720ms; }
 
       .top-progress {
         position: fixed;
@@ -1018,28 +1000,6 @@
         36% {
           transform: scale(0.96);
           opacity: 0.42;
-        }
-      }
-
-      @keyframes dotMatrixSweep {
-        0% {
-          transform: scale(0.88);
-          opacity: 0.08;
-        }
-
-        22% {
-          transform: scale(1.06);
-          opacity: 0.92;
-        }
-
-        44% {
-          transform: scale(0.96);
-          opacity: 0.34;
-        }
-
-        100% {
-          transform: scale(0.88);
-          opacity: 0.08;
         }
       }
 
@@ -2049,19 +2009,6 @@
             React.createElement(
               "div",
               { className: "dot-matrix dot-matrix-3x3", "aria-hidden": "true" },
-              React.createElement("span", { className: "dot-matrix-dot" }),
-              React.createElement("span", { className: "dot-matrix-dot" }),
-              React.createElement("span", { className: "dot-matrix-dot" }),
-              React.createElement("span", { className: "dot-matrix-dot" }),
-              React.createElement("span", { className: "dot-matrix-dot" }),
-              React.createElement("span", { className: "dot-matrix-dot" }),
-              React.createElement("span", { className: "dot-matrix-dot" }),
-              React.createElement("span", { className: "dot-matrix-dot" }),
-              React.createElement("span", { className: "dot-matrix-dot" })
-            ),
-            React.createElement(
-              "div",
-              { className: "dot-matrix dot-matrix-perimeter", "aria-hidden": "true" },
               React.createElement("span", { className: "dot-matrix-dot" }),
               React.createElement("span", { className: "dot-matrix-dot" }),
               React.createElement("span", { className: "dot-matrix-dot" }),
