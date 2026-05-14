@@ -445,6 +445,14 @@
         transform: translate3d(var(--mx), var(--my), 0) scale(0.975);
       }
 
+      .toast-control:focus-visible,
+      .modal-demo-button:focus-visible,
+      .diff-handle:focus-visible,
+      select.toast-control:focus-visible {
+        outline: 2px solid #111111;
+        outline-offset: 2px;
+      }
+
       .toast-reset {
         height: 36px;
         min-width: auto;
@@ -573,6 +581,10 @@
         border: 2px solid rgba(255, 255, 255, 0.92);
         transform: translate(-50%, -50%);
         box-shadow: 0 1px 4px rgba(0, 0, 0, 0.22);
+      }
+
+      .diff-handle:focus-visible::after {
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.22), 0 0 0 4px rgba(17, 17, 17, 0.22);
       }
 
       .diff-controls {

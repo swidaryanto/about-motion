@@ -6,6 +6,19 @@
         return Math.max(min, Math.min(max, value));
       }
 
+      function getFocusableElements(container) {
+        if (!container) return [];
+        const selectors = [
+          "a[href]",
+          "button:not([disabled])",
+          "input:not([disabled])",
+          "select:not([disabled])",
+          "textarea:not([disabled])",
+          "[tabindex]:not([tabindex='-1'])"
+        ];
+        return Array.from(container.querySelectorAll(selectors.join(","))).filter((el) => !el.hasAttribute("disabled"));
+      }
+
       function isMobileLayout() {
         return window.innerWidth <= 760;
       }
@@ -908,6 +921,14 @@
           setReveal(Math.round(clamp(ratio * 100, 0, 100)));
         };
 
+        const onHandleKeyDown = (event) => {
+          const largeStep = event.shiftKey ? 10 : 4;
+          const step = event.key === "ArrowLeft" ? -largeStep : event.key === "ArrowRight" ? largeStep : 0;
+          if (step === 0) return;
+          event.preventDefault();
+          setReveal((prev) => clamp(prev + step, 0, 100));
+        };
+
         return React.createElement(
           motion.section,
           {
@@ -961,7 +982,8 @@
               "aria-valuemax": 100,
               "aria-valuenow": reveal,
               tabIndex: 0,
-              onPointerDown: startHandleDrag
+              onPointerDown: startHandleDrag,
+              onKeyDown: onHandleKeyDown
             })
           ),
           React.createElement(
@@ -976,6 +998,7 @@
         const [open, setOpen] = useState(false);
         const [origin, setOrigin] = useState({ x: window.innerWidth * 0.5, y: window.innerHeight * 0.5 });
         const triggerRef = useRef(null);
+        const modalRef = useRef(null);
         const prefersReducedMotion = useReducedMotion();
         const modalCardVariants = prefersReducedMotion
           ? {
@@ -1030,6 +1053,43 @@
           return () => window.removeEventListener("keydown", onKeyDown);
         }, [open]);
 
+        useEffect(() => {
+          if (!open) return;
+          const focusables = getFocusableElements(modalRef.current);
+          const first = focusables[0] || modalRef.current;
+          if (first && typeof first.focus === "function") first.focus();
+
+          const onTrap = (event) => {
+            if (event.key !== "Tab") return;
+            const modalFocusables = getFocusableElements(modalRef.current);
+            if (modalFocusables.length === 0) {
+              event.preventDefault();
+              if (modalRef.current) modalRef.current.focus();
+              return;
+            }
+            const firstEl = modalFocusables[0];
+            const lastEl = modalFocusables[modalFocusables.length - 1];
+            const active = document.activeElement;
+            if (event.shiftKey && active === firstEl) {
+              event.preventDefault();
+              lastEl.focus();
+            } else if (!event.shiftKey && active === lastEl) {
+              event.preventDefault();
+              firstEl.focus();
+            }
+          };
+
+          window.addEventListener("keydown", onTrap);
+          return () => window.removeEventListener("keydown", onTrap);
+        }, [open]);
+
+        useEffect(() => {
+          if (open) return;
+          if (triggerRef.current && typeof triggerRef.current.focus === "function") {
+            triggerRef.current.focus();
+          }
+        }, [open]);
+
         const openModal = () => {
           if (triggerRef.current) {
             const rect = triggerRef.current.getBoundingClientRect();
@@ -1079,10 +1139,12 @@
                   React.createElement(
                     motion.article,
                     {
+                      ref: modalRef,
                       className: "ek-modal-card",
                       role: "dialog",
                       "aria-modal": "true",
                       "aria-label": "Unique modal animation",
+                      tabIndex: -1,
                       variants: modalCardVariants,
                       initial: "hidden",
                       animate: "visible",
