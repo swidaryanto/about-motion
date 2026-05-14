@@ -27,3 +27,14 @@ npm run dev
 - `npm run build` build static output into `dist/`
 - `npm run preview` preview production build locally
 - `npm run lint` run JavaScript lint checks
+
+## Metadata
+
+- Page title and meta description live in `index.html`.
+- Keep metadata specific to motion-playground purpose so page is understandable outside homepage context.
+
+## Version Pin Strategy
+
+- Keep dependency versions exact in `package.json` (no range operators).
+- Commit `package-lock.json` on every dependency update.
+- Update dependencies intentionally, then run `npm run lint` and `npm run build` before push.

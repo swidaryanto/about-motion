@@ -136,6 +136,8 @@
           active: false,
           offsetX: 0,
           offsetY: 0,
+          nextX: 0,
+          nextY: 0,
           rafId: 0
         });
 
@@ -145,9 +147,13 @@
             const rect = ref.current.getBoundingClientRect();
             const left = event.clientX - drag.current.offsetX;
             const top = event.clientY - drag.current.offsetY;
-            const nextX = clamp(left, 0, window.innerWidth - rect.width);
-            const nextY = clamp(top, 0, window.innerHeight - rect.height);
-            setPos({ x: nextX, y: nextY });
+            drag.current.nextX = clamp(left, 0, window.innerWidth - rect.width);
+            drag.current.nextY = clamp(top, 0, window.innerHeight - rect.height);
+            if (drag.current.rafId) return;
+            drag.current.rafId = requestAnimationFrame(() => {
+              drag.current.rafId = 0;
+              setPos({ x: drag.current.nextX, y: drag.current.nextY });
+            });
           };
 
           const onUp = () => {
@@ -181,6 +187,8 @@
 
         const onPointerDown = (event) => {
           if (!ref.current) return;
+          if (event.button !== 0) return;
+          if (event.target && event.target.closest("[data-no-drag='true']")) return;
           if (drag.current.rafId) {
             cancelAnimationFrame(drag.current.rafId);
             drag.current.rafId = 0;
