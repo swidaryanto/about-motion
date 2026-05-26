@@ -37,16 +37,17 @@
 
       function getDefaultLoadingPos() {
         const toast = getDefaultToastPos();
-        const toastWidth = Math.min(420, Math.max(240, window.innerWidth - 44));
+        const panelWidth = Math.min(420, Math.max(240, window.innerWidth - 44));
+        const panelHeight = 236;
         if (isMobileLayout()) {
           return {
-            x: getMobileCenteredX(180),
-            y: getMobileStackY(76)
+            x: getMobileCenteredX(Math.min(420, Math.max(260, window.innerWidth - 16))),
+            y: getMobileStackY(24)
           };
         }
         return {
-          x: clamp(toast.x + toastWidth + 26, 24, window.innerWidth - 204),
-          y: clamp(toast.y + 4, 24, window.innerHeight - 190)
+          x: clamp(toast.x, 24, window.innerWidth - panelWidth - 24),
+          y: clamp(toast.y - panelHeight - 34, 24, window.innerHeight - panelHeight - 24)
         };
       }
 
@@ -79,18 +80,18 @@
       }
 
       function getDefaultMotionExamplesPos() {
-        const loading = getDefaultLoadingPos();
-        const width = Math.min(380, Math.max(260, window.innerWidth - 40));
+        const toast = getDefaultToastPos();
+        const width = Math.min(420, Math.max(240, window.innerWidth - 44));
         if (isMobileLayout()) {
-          const mobileWidth = getMobileCardWidth();
+          const mobileWidth = Math.min(420, Math.max(260, window.innerWidth - 16));
           return {
             x: getMobileCenteredX(mobileWidth),
-            y: getMobileStackY(272)
+            y: getMobileStackY(toast.y + 188)
           };
         }
         return {
-          x: clamp(loading.x + 210, 20, window.innerWidth - width - 20),
-          y: clamp(loading.y + 106, 20, window.innerHeight - 240)
+          x: clamp(toast.x, 24, window.innerWidth - width - 24),
+          y: clamp(toast.y + 286, 20, window.innerHeight - 240)
         };
       }
 
