@@ -1,7 +1,6 @@
-# About — Motion Playground
+## About — Motion Playground
 
-Interactive sandbox for testing motion patterns used in `widaryanto.com`.
-Focus: draggable panels, loading states, toast behavior, and micro-interaction timing.
+Interactive sandbox for testing motion patterns used in `widaryanto.com`. Exploration as it's best.
 
 ## Purpose
 
