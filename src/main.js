@@ -188,6 +188,7 @@
 
         const onPointerDown = (event) => {
           if (!ref.current) return;
+          if (isMobileLayout()) return;
           if (event.button !== 0) return;
           if (event.target && event.target.closest("[data-no-drag='true']")) return;
           if (drag.current.rafId) {

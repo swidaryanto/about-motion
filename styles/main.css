@@ -985,6 +985,26 @@
       }
 
       @media (max-width: 760px) {
+        html,
+        body,
+        #app {
+          height: auto;
+          min-height: 100%;
+        }
+
+        body {
+          overflow-x: hidden;
+          overflow-y: auto;
+        }
+
+        #app {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 16px;
+          padding: 24px 8px 16px;
+        }
+
         .loading-card {
           width: 180px;
           border-radius: 14px;
@@ -992,8 +1012,12 @@
         }
 
         .loading-suite-panel {
+          position: relative;
+          inset: auto !important;
           width: min(420px, calc(100vw - 16px));
           border-radius: 14px;
+          cursor: default;
+          touch-action: auto;
         }
 
         .loading-suite-row {
@@ -1012,7 +1036,11 @@
         }
 
         .toast-panel {
+          position: relative;
+          inset: auto !important;
           width: min(420px, calc(100vw - 16px));
+          cursor: default;
+          touch-action: auto;
         }
 
         .toast-stage {
@@ -1076,12 +1104,18 @@
         }
 
         .modal-demo-button {
-          right: 8px;
-          bottom: 8px;
+          position: relative;
+          right: auto;
+          bottom: auto;
+          align-self: flex-end;
         }
 
         .motion-example-panel {
+          position: relative;
+          inset: auto !important;
           width: min(420px, calc(100vw - 16px));
+          cursor: default;
+          touch-action: auto;
         }
 
         .motion-example-stage {
