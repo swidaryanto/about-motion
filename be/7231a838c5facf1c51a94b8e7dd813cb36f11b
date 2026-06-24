@@ -1,0 +1,48 @@
+styles/toast.css
+  s_f8ebbc3ee43de6::t_1f9e783f2de845 1-170
+README.md
+  s_f8ebbc3ee43de6::t_b22ab13f4f33f8 50
+  s_f8ebbc3ee43de6::t_585c82b9260f87 9-10,19
+styles/main.css
+  s_f8ebbc3ee43de6::t_1f9e783f2de845 1-5
+styles/responsive.css
+  s_f8ebbc3ee43de6::t_1f9e783f2de845 1-171
+src/components/EmilModalDemo.js
+  s_f8ebbc3ee43de6::t_f8eb0214f2a54b 1-197
+src/lib/layout.js
+  s_f8ebbc3ee43de6::t_f8eb0214f2a54b 1-62
+src/components/TopCornerProgress.js
+  s_f8ebbc3ee43de6::t_f8eb0214f2a54b 1-23
+src/main.js
+  s_f8ebbc3ee43de6::t_f8eb0214f2a54b 1-39
+styles/base.css
+  s_f8ebbc3ee43de6::t_1f9e783f2de845 1-116
+src/components/MotionExamples.js
+  s_f8ebbc3ee43de6::t_f8eb0214f2a54b 1-238
+src/components/ToastPanel.js
+  s_f8ebbc3ee43de6::t_f8eb0214f2a54b 1-239
+styles/motion.css
+  s_f8ebbc3ee43de6::t_1f9e783f2de845 1-262
+src/hooks/useDraggablePosition.js
+  s_f8ebbc3ee43de6::t_f8eb0214f2a54b 1-79
+src/components/UnifiedLoadingPanel.js
+  s_f8ebbc3ee43de6::t_f8eb0214f2a54b 1-111
+styles/loading.css
+  s_f8ebbc3ee43de6::t_1f9e783f2de845 1-305
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.13",
+  "base_commit_sha": "be7231a838c5facf1c51a94b8e7dd813cb36f11b",
+  "prompts": {},
+  "sessions": {
+    "s_f8ebbc3ee43de6": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ef9f1-0505-7530-b90e-0ded7a8fe4b3",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Septian Widaryanto <septianwidaryanto@gmail.com>"
+    }
+  }
+}
