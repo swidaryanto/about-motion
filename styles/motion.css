@@ -1,0 +1,262 @@
+.modal-demo-button {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  height: 40px;
+  padding: 0 14px;
+  border: 1px solid var(--panel-line);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(4px);
+  color: #1e1e1e;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  cursor: pointer;
+  transition:
+    transform 140ms cubic-bezier(0.23, 1, 0.32, 1),
+    background 180ms var(--ease-utility),
+    border-color 180ms var(--ease-utility);
+  box-shadow: none;
+  z-index: 6;
+}
+
+.motion-example-panel {
+  position: fixed;
+  width: min(420px, calc(100vw - 44px));
+  border-radius: 14px;
+  border: 1px solid var(--panel-line);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px) saturate(120%);
+  box-shadow: none;
+  overflow: hidden;
+  z-index: 6;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+}
+
+.motion-example-panel.dragging {
+  cursor: grabbing;
+}
+
+.motion-example-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 12px 8px;
+  border-bottom: 1px solid #e3e3e3;
+}
+
+.motion-example-title {
+  margin: 0;
+  color: #1f1f1f;
+  font-size: 13px;
+  font-weight: 650;
+  letter-spacing: -0.005em;
+}
+
+.motion-example-counter {
+  color: #6a6a6a;
+  font-size: 11px;
+  font-family: "IBM Plex Mono", "SF Mono", "JetBrains Mono", monospace;
+}
+
+.motion-example-stage {
+  min-height: 130px;
+  display: grid;
+  place-items: center;
+  padding: 16px 12px;
+  background: linear-gradient(160deg, #f7f7f7 0%, #efefef 100%);
+}
+
+.motion-example-block {
+  width: 120px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid #d7d7d7;
+  background: #ffffff;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  color: #333;
+  font-weight: 600;
+}
+
+.motion-example-list {
+  width: min(240px, 100%);
+  display: grid;
+  gap: 6px;
+}
+
+.motion-example-row {
+  border: 1px solid #d7d7d7;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #333;
+  font-size: 12px;
+  padding: 8px 10px;
+}
+
+.motion-example-toast {
+  width: min(240px, 100%);
+  border-radius: 10px;
+  border: 1px solid #d7d7d7;
+  background: #ffffff;
+  color: #333;
+  font-size: 12px;
+  padding: 10px 12px;
+}
+
+.motion-example-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 10px;
+  border-top: 1px solid #e3e3e3;
+}
+
+.motion-skeleton {
+  width: 240px;
+  max-width: 100%;
+  display: grid;
+  gap: 8px;
+  justify-self: center;
+}
+
+.skeleton-line {
+  width: 100%;
+  height: 12px;
+  border-radius: 999px;
+  background: linear-gradient(100deg, #e3e3e3 24%, #efefef 50%, #e3e3e3 76%);
+  background-size: 240% 100%;
+  animation: skeletonShimmer 2.2s cubic-bezier(0.33, 1, 0.68, 1) infinite;
+  border: 1px solid #d9d9d9;
+}
+
+.skeleton-line.short {
+  width: 58%;
+  justify-self: start;
+}
+
+.skeleton-line.medium {
+  width: 74%;
+  justify-self: start;
+}
+
+.motion-progress {
+  width: 250px;
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-self: center;
+}
+
+.progress-step {
+  flex: 1;
+  height: 8px;
+  border-radius: 999px;
+  background: #d2d2d2;
+  overflow: hidden;
+  border: 1px solid #c8c8c8;
+}
+
+.progress-step-fill {
+  width: 100%;
+  height: 100%;
+  background: #242424;
+  transform-origin: left center;
+}
+
+.motion-success {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 1px solid #d5d5d5;
+  background: #ffffff;
+  display: grid;
+  place-items: center;
+}
+
+.motion-success-icon {
+  width: 32px;
+  height: 32px;
+}
+
+.modal-demo-button:hover {
+  background: rgba(255, 255, 255, 0.96);
+}
+
+.modal-demo-button:active {
+  transform: scale(0.97);
+}
+
+.ek-modal-overlay {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 14px;
+  z-index: 9;
+}
+
+.ek-modal-bloom {
+  position: absolute;
+  inset: 0;
+  background: rgba(24, 24, 24, 0.3);
+  backdrop-filter: blur(4px);
+}
+
+.ek-modal-card {
+  position: relative;
+  width: min(470px, calc(100vw - 28px));
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(250, 250, 250, 0.94);
+  box-shadow: none;
+  overflow: hidden;
+}
+
+.ek-modal-head {
+  padding: 16px 16px 10px;
+}
+
+.ek-modal-title {
+  margin: 0;
+  color: #171717;
+  font-size: 18px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.ek-modal-body {
+  margin: 8px 0 0;
+  color: #434343;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.ek-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 0 16px 16px;
+}
+
+select.toast-control {
+  appearance: none;
+  padding-right: 24px;
+}
+
+@keyframes skeletonShimmer {
+  from {
+    background-position: 200% 0;
+  }
+
+  to {
+    background-position: -200% 0;
+  }
+}

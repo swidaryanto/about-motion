@@ -1,0 +1,305 @@
+.loading-card {
+  position: fixed;
+  width: 180px;
+  height: 80px;
+  border-radius: 16px;
+  border: 1px solid var(--panel-line);
+  background: var(--panel-bg);
+  box-shadow: none;
+  display: grid;
+  place-items: center;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+}
+
+.loading-suite-panel {
+  position: fixed;
+  width: min(420px, calc(100vw - 44px));
+  border-radius: 16px;
+  border: 1px solid var(--panel-line);
+  background: rgba(243, 243, 243, 0.94);
+  box-shadow: none;
+  overflow: hidden;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+}
+
+.loading-suite-panel.dragging {
+  cursor: grabbing;
+}
+
+.loading-suite-row {
+  min-height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 12px;
+}
+
+.loading-suite-row + .loading-suite-row {
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.braille-panel {
+  position: fixed;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 44px;
+  width: 180px;
+  height: 80px;
+  border-radius: 16px;
+  border: 1px solid var(--panel-line);
+  background: var(--panel-bg);
+  box-shadow: none;
+  color: var(--braille-spinner);
+  user-select: none;
+  pointer-events: auto;
+  cursor: grab;
+  touch-action: none;
+}
+
+.dot-pulse-floating {
+  position: fixed;
+  pointer-events: auto;
+  cursor: grab;
+  touch-action: none;
+}
+
+.dot-pulse-floating.dragging {
+  cursor: grabbing;
+}
+
+.braille-panel.dragging {
+  cursor: grabbing;
+}
+
+.braille-slot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 28px;
+}
+
+.loading-braille {
+  font-family: "IBM Plex Mono", "SF Mono", "JetBrains Mono", "Cascadia Mono", monospace;
+  font-size: 20px;
+  line-height: 1;
+  letter-spacing: 0;
+  text-rendering: geometricPrecision;
+}
+
+.loading-braille-trail {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.1ch;
+  height: 1em;
+}
+
+.loading-braille-layer {
+  position: absolute;
+  inset: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-braille-ghost-1 {
+  opacity: 0.58;
+  transform: translateX(-0.015em);
+}
+
+.loading-braille-ghost-2 {
+  opacity: 0.3;
+  transform: translateX(-0.03em);
+}
+
+.loading-braille-ghost-3 {
+  opacity: 0.14;
+  transform: translateX(-0.045em);
+}
+
+.dot-pulse-panel {
+  width: 180px;
+  height: 80px;
+  border-radius: 14px;
+  border: 1px solid var(--panel-line);
+  background: color-mix(in srgb, var(--panel-bg) 82%, white 18%);
+  box-shadow: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dot-pulse {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.dot-pulse-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--braille-spinner) 92%, white 8%);
+  opacity: 0.16;
+  box-shadow: 0 0 0 0.5px color-mix(in srgb, var(--braille-spinner) 28%, transparent);
+  animation: dotPulse 920ms steps(1, end) infinite;
+}
+
+.dot-pulse-dot:nth-child(2) {
+  animation-delay: 120ms;
+}
+
+.dot-pulse-dot:nth-child(3) {
+  animation-delay: 240ms;
+}
+
+.dot-matrix {
+  display: inline-grid;
+  gap: 2px;
+  align-items: center;
+  justify-items: center;
+}
+
+.dot-matrix-3x3 {
+  grid-template-columns: repeat(3, 3px);
+}
+
+.dot-matrix-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--braille-spinner) 94%, white 6%);
+  opacity: 0.12;
+  box-shadow: 0 0 0 0.5px color-mix(in srgb, var(--braille-spinner) 22%, transparent);
+}
+
+.dot-matrix-3x3 .dot-matrix-dot {
+  animation: dotMatrixScan 1500ms steps(1, end) infinite;
+}
+
+.dot-matrix-3x3 .dot-matrix-dot:nth-child(1) { animation-delay: 0ms; }
+.dot-matrix-3x3 .dot-matrix-dot:nth-child(2) { animation-delay: 70ms; }
+.dot-matrix-3x3 .dot-matrix-dot:nth-child(3) { animation-delay: 140ms; }
+.dot-matrix-3x3 .dot-matrix-dot:nth-child(4) { animation-delay: 280ms; }
+.dot-matrix-3x3 .dot-matrix-dot:nth-child(5) { animation-delay: 350ms; }
+.dot-matrix-3x3 .dot-matrix-dot:nth-child(6) { animation-delay: 420ms; }
+.dot-matrix-3x3 .dot-matrix-dot:nth-child(7) { animation-delay: 560ms; }
+.dot-matrix-3x3 .dot-matrix-dot:nth-child(8) { animation-delay: 630ms; }
+.dot-matrix-3x3 .dot-matrix-dot:nth-child(9) { animation-delay: 700ms; }
+
+.top-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 1.5px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--panel-bg) 86%, white 14%);
+  overflow: hidden;
+  z-index: 4;
+}
+
+.top-progress-bar {
+  position: absolute;
+  top: 0;
+  left: -38%;
+  width: 28%;
+  height: 100%;
+  border-radius: inherit;
+  background: #9a9a9a;
+  animation: indeterminateSlide 4.5s linear infinite;
+}
+
+body[data-motion="calm"] .loading-braille-ghost-1 {
+  opacity: 0.42;
+}
+
+body[data-motion="calm"] .loading-braille-ghost-2 {
+  opacity: 0.22;
+}
+
+body[data-motion="calm"] .loading-braille-ghost-3 {
+  opacity: 0.1;
+}
+
+.loading-card.dragging {
+  cursor: grabbing;
+}
+
+.spinners {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 47px;
+}
+
+.spinner {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 3px solid var(--spinner-track);
+  border-top-color: var(--spinner-head);
+  animation: spin 760ms linear infinite;
+}
+
+.spinner:first-child {
+  animation-duration: 1520ms;
+}
+
+.spinner:nth-child(2) {
+  animation-duration: 820ms;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dotPulse {
+  0%,
+  100% {
+    transform: scale(0.9);
+    opacity: 0.16;
+  }
+
+  34% {
+    transform: scale(1.08);
+    opacity: 0.88;
+  }
+}
+
+@keyframes dotMatrixScan {
+  0%,
+  100% {
+    transform: scale(0.88);
+    opacity: 0.08;
+  }
+
+  18% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+
+  36% {
+    transform: scale(0.96);
+    opacity: 0.42;
+  }
+}
+
+@keyframes indeterminateSlide {
+  0% {
+    left: -28%;
+  }
+
+  100% {
+    left: 100%;
+  }
+}
