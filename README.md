@@ -6,8 +6,8 @@ Interactive sandbox for testing motion patterns used in `widaryanto.com`. Explor
 
 Use this repo to quickly explore:
 - Loading UI variations (spinner cards, braille spinner, dot-pulse animation)
-- Toast transition behavior (slide, push, stacked modes)
-- Draggable UI components with spring physics
+- Toast transition behavior (slide, fade, scale modes)
+- Draggable desktop panels with mobile document flow
 - Top-corner progress bar patterns
 - Reduced-motion and mobile-responsive layouts
 
@@ -16,7 +16,7 @@ Before shipping any micro-interaction to the main site, prototype and iterate he
 ## Tech Stack
 
 - **Vite** — fast dev server and build tool
-- **React 18** — loaded via `esm.sh` (no bundler needed)
+- **React 18** — component runtime bundled by Vite
 - **Framer Motion** — animation primitives (`motion`, `AnimatePresence`, `useReducedMotion`)
 - **ESLint** — linting for `src/**/*.js`
 
@@ -47,6 +47,6 @@ Then open the local URL printed by Vite (usually `http://localhost:5173`).
 
 ## How it works
 
-Components currently live in `src/main.js` and import locally installed React and Framer Motion packages. Each active motion panel is draggable on desktop and follows normal document flow on mobile.
+`src/main.js` only mounts the app. Focused modules under `src/components/` contain each experiment, while shared positioning and drag behavior live under `src/lib/` and `src/hooks/`. Feature styles live in focused files imported by `styles/main.css`. Each active motion panel is draggable on desktop and follows normal document flow on mobile.
 
 Toast controls can add or reset notifications and compare slide, fade, and scale transitions. Motion examples cycle through skeleton, progress, and success states.

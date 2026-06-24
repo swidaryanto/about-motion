@@ -1,0 +1,197 @@
+import React, { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+
+function getFocusableElements(container) {
+  if (!container) return [];
+  const selectors = [
+    "a[href]",
+    "button:not([disabled])",
+    "input:not([disabled])",
+    "select:not([disabled])",
+    "textarea:not([disabled])",
+    "[tabindex]:not([tabindex='-1'])"
+  ];
+  return Array.from(container.querySelectorAll(selectors.join(","))).filter((el) => !el.hasAttribute("disabled"));
+}
+
+export function EmilModalDemo() {
+  const [open, setOpen] = useState(false);
+  const [origin, setOrigin] = useState({ x: window.innerWidth * 0.5, y: window.innerHeight * 0.5 });
+  const triggerRef = useRef(null);
+  const modalRef = useRef(null);
+  const prefersReducedMotion = useReducedMotion();
+  const modalCardVariants = prefersReducedMotion
+    ? {
+        hidden: { opacity: 0, y: 24, scale: 0.95 },
+        visible: {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          transition: { duration: 0 }
+        },
+        exit: {
+          opacity: 0,
+          y: 12,
+          scale: 0.985,
+          transition: { duration: 0 }
+        }
+      }
+    : {
+        hidden: { opacity: 0, y: 24, scale: 0.95 },
+        visible: {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          transition: {
+            type: "spring",
+            stiffness: 280,
+            damping: 26,
+            mass: 0.9,
+            delay: 0.05
+          }
+        },
+        exit: {
+          y: [0, 22, 34],
+          scale: [1, 0.985, 0.97],
+          opacity: [1, 1, 0],
+          filter: ["blur(0px)", "blur(0.2px)", "blur(0.8px)"],
+          transition: {
+            y: { duration: 0.34, ease: [0.22, 1, 0.36, 1], times: [0, 0.72, 1] },
+            scale: { duration: 0.34, ease: [0.22, 1, 0.36, 1], times: [0, 0.72, 1] },
+            opacity: { duration: 0.34, ease: [0.22, 1, 0.36, 1], times: [0, 0.72, 1] },
+            filter: { duration: 0.34, ease: [0.22, 1, 0.36, 1], times: [0, 0.72, 1] }
+          }
+        }
+      };
+
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (event) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [open]);
+
+  useEffect(() => {
+    if (!open) return;
+    const focusables = getFocusableElements(modalRef.current);
+    const first = focusables[0] || modalRef.current;
+    if (first && typeof first.focus === "function") first.focus();
+
+    const onTrap = (event) => {
+      if (event.key !== "Tab") return;
+      const modalFocusables = getFocusableElements(modalRef.current);
+      if (modalFocusables.length === 0) {
+        event.preventDefault();
+        if (modalRef.current) modalRef.current.focus();
+        return;
+      }
+      const firstEl = modalFocusables[0];
+      const lastEl = modalFocusables[modalFocusables.length - 1];
+      const active = document.activeElement;
+      if (event.shiftKey && active === firstEl) {
+        event.preventDefault();
+        lastEl.focus();
+      } else if (!event.shiftKey && active === lastEl) {
+        event.preventDefault();
+        firstEl.focus();
+      }
+    };
+
+    window.addEventListener("keydown", onTrap);
+    return () => window.removeEventListener("keydown", onTrap);
+  }, [open]);
+
+  useEffect(() => {
+    if (open) return;
+    if (triggerRef.current && typeof triggerRef.current.focus === "function") {
+      triggerRef.current.focus();
+    }
+  }, [open]);
+
+  const openModal = () => {
+    if (triggerRef.current) {
+      const rect = triggerRef.current.getBoundingClientRect();
+      setOrigin({ x: rect.left + rect.width * 0.5, y: rect.top + rect.height * 0.5 });
+    }
+    setOpen(true);
+  };
+
+  return React.createElement(
+    React.Fragment,
+    null,
+    React.createElement(
+      "button",
+      { ref: triggerRef, className: "modal-demo-button", type: "button", onClick: openModal },
+      "Open modal"
+    ),
+    React.createElement(
+      AnimatePresence,
+      { mode: "wait" },
+      null,
+      open
+        ? React.createElement(
+            motion.div,
+            {
+              className: "ek-modal-overlay",
+              initial: { opacity: 0 },
+              animate: { opacity: 1 },
+              exit: { opacity: 0 },
+              transition: {
+                duration: prefersReducedMotion ? 0 : 0.3,
+                ease: [0.22, 1, 0.36, 1]
+              }
+            },
+            React.createElement(motion.div, {
+              className: "ek-modal-bloom",
+              onClick: () => setOpen(false),
+              initial: { clipPath: `circle(0px at ${origin.x}px ${origin.y}px)` },
+              animate: { clipPath: `circle(${Math.hypot(window.innerWidth, window.innerHeight)}px at ${origin.x}px ${origin.y}px)` },
+              exit: { clipPath: `circle(0px at ${origin.x}px ${origin.y}px)` },
+              transition: prefersReducedMotion
+                ? { duration: 0 }
+                : {
+                    duration: 0.48,
+                    ease: [0.32, 0.72, 0, 1]
+                  }
+            }),
+            React.createElement(
+              motion.article,
+              {
+                ref: modalRef,
+                className: "ek-modal-card",
+                role: "dialog",
+                "aria-modal": "true",
+                "aria-label": "Unique modal animation",
+                tabIndex: -1,
+                variants: modalCardVariants,
+                initial: "hidden",
+                animate: "visible",
+                exit: "exit"
+              },
+              React.createElement(
+                "header",
+                { className: "ek-modal-head" },
+                React.createElement("h3", { className: "ek-modal-title" }, "Modal with Trigger-Bloom Entrance"),
+                React.createElement(
+                  "p",
+                  { className: "ek-modal-body" },
+                  "The backdrop grows from the trigger first, then the card settles in. It feels connected and less abrupt."
+                )
+              ),
+              React.createElement(
+                "div",
+                { className: "ek-modal-actions" },
+                React.createElement(
+                  "button",
+                  { className: "toast-control", type: "button", onClick: () => setOpen(false) },
+                  "Close"
+                )
+              )
+            )
+          )
+        : null
+    )
+  );
+}

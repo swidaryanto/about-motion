@@ -1,0 +1,171 @@
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .dot-pulse-dot {
+    opacity: 0.56;
+  }
+
+  .top-progress-bar {
+    left: 0;
+    width: 100%;
+  }
+}
+
+@media (max-width: 760px) {
+  html,
+  body,
+  #app {
+    height: auto;
+    min-height: 100%;
+  }
+
+  body {
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  #app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 24px 8px 16px;
+  }
+
+  .loading-card {
+    width: 180px;
+    border-radius: 14px;
+    height: 80px;
+  }
+
+  .loading-suite-panel {
+    position: relative;
+    inset: auto !important;
+    width: min(420px, calc(100vw - 16px));
+    border-radius: 14px;
+    cursor: default;
+    touch-action: auto;
+  }
+
+  .loading-suite-row {
+    min-height: 54px;
+    padding: 8px 10px;
+  }
+
+  .spinners {
+    gap: 30px;
+  }
+
+  .spinner {
+    width: 21px;
+    height: 21px;
+    border-width: 3px;
+  }
+
+  .toast-panel {
+    position: relative;
+    inset: auto !important;
+    width: min(420px, calc(100vw - 16px));
+    cursor: default;
+    touch-action: auto;
+  }
+
+  .toast-stage {
+    height: 118px;
+  }
+
+  .toast-item {
+    font-size: 14px;
+  }
+
+  .toast-controls {
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .toast-controls-left,
+  .toast-controls-right {
+    width: auto;
+    flex: 0 0 auto;
+  }
+
+  .toast-controls-right {
+    justify-content: flex-end;
+    margin-left: auto;
+  }
+
+  .toast-control {
+    height: 34px;
+    min-width: 92px;
+    font-size: 12px;
+    padding: 0 8px;
+  }
+
+  .braille-panel {
+    width: 180px;
+    height: 80px;
+    border-radius: 16px;
+    gap: 40px;
+  }
+
+  .braille-slot {
+    width: 30px;
+    height: 26px;
+  }
+
+  .loading-braille {
+    font-size: 18px;
+  }
+
+  .dot-pulse-panel {
+    width: 180px;
+    height: 80px;
+  }
+
+  .top-progress {
+    top: 0;
+    left: 0;
+    width: 100vw;
+  }
+
+  .modal-demo-button {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    align-self: flex-end;
+  }
+
+  .motion-example-panel {
+    position: relative;
+    inset: auto !important;
+    width: min(420px, calc(100vw - 16px));
+    cursor: default;
+    touch-action: auto;
+  }
+
+  .motion-example-stage {
+    min-height: 108px;
+    padding: 12px 10px;
+  }
+
+  .diff-panel {
+    width: min(360px, calc(100vw - 16px));
+  }
+
+  .diff-stage {
+    height: 128px;
+  }
+
+  .diff-controls {
+    padding: 6px 10px;
+  }
+
+}
