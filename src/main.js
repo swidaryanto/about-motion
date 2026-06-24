@@ -1,6 +1,6 @@
-      import React, { useEffect, useMemo, useRef, useState } from "https://esm.sh/react@18.2.0";
-      import { createRoot } from "https://esm.sh/react-dom@18.2.0/client";
-      import { AnimatePresence, MotionConfig, motion, useReducedMotion } from "https://esm.sh/framer-motion@11.2.10?deps=react@18.2.0";
+      import React, { useEffect, useMemo, useRef, useState } from "react";
+      import { createRoot } from "react-dom/client";
+      import { AnimatePresence, MotionConfig, motion, useReducedMotion } from "framer-motion";
 
       function clamp(value, min, max) {
         return Math.max(min, Math.min(max, value));

@@ -47,6 +47,6 @@ Then open the local URL printed by Vite (usually `http://localhost:5173`).
 
 ## How it works
 
-All components live in a single `src/main.js` file using React elements via `esm.sh`. Each motion panel (loading, toast, braille spinner, dot pulse) is a draggable widget you can rearrange on the canvas. The playground supports two motion modes — **standard** and **calm** — to compare animation feel side-by-side.
+Components currently live in `src/main.js` and import locally installed React and Framer Motion packages. Each active motion panel is draggable on desktop and follows normal document flow on mobile.
 
-Double-click a loading card to duplicate it. Toasts can be triggered from the toast panel controls and cycle through slide, push, and stacked transition modes.
+Toast controls can add or reset notifications and compare slide, fade, and scale transitions. Motion examples cycle through skeleton, progress, and success states.
