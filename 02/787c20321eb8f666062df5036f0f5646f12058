@@ -1,0 +1,24 @@
+README.md
+  s_f8ebbc3ee43de6::t_6b15580f87eb46 50
+  s_f8ebbc3ee43de6::t_19c1a90010582f 52
+package.json
+  s_f8ebbc3ee43de6::t_4aef972cb4d88d 18-22
+src/main.js
+  s_f8ebbc3ee43de6::t_5c37025cb510a3 1-3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.13",
+  "base_commit_sha": "02787c20321eb8f666062df5036f0f5646f12058",
+  "prompts": {},
+  "sessions": {
+    "s_f8ebbc3ee43de6": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ef9f1-0505-7530-b90e-0ded7a8fe4b3",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Septian Widaryanto <septianwidaryanto@gmail.com>"
+    }
+  }
+}
