@@ -1,6 +1,6 @@
       import React, { useEffect, useMemo, useRef, useState } from "https://esm.sh/react@18.2.0";
       import { createRoot } from "https://esm.sh/react-dom@18.2.0/client";
-      import { AnimatePresence, motion, useReducedMotion } from "https://esm.sh/framer-motion@11.2.10?deps=react@18.2.0";
+      import { AnimatePresence, MotionConfig, motion, useReducedMotion } from "https://esm.sh/framer-motion@11.2.10?deps=react@18.2.0";
 
       function clamp(value, min, max) {
         return Math.max(min, Math.min(max, value));
@@ -157,6 +157,7 @@
       }
 
       function TopCornerProgress({ entranceReady, motionMode }) {
+        const prefersReducedMotion = useReducedMotion();
         return React.createElement(
           motion.div,
           {
@@ -167,7 +168,7 @@
             initial: { opacity: 0, y: -6 },
             animate: { opacity: entranceReady ? 1 : 0, y: entranceReady ? 0 : -6 },
             transition: {
-              duration: motionMode === "calm" ? 0.26 : 0.34,
+              duration: prefersReducedMotion ? 0 : motionMode === "calm" ? 0.26 : 0.34,
               delay: motionMode === "calm" ? 0.02 : 0.04,
               ease: [0.22, 1, 0.36, 1]
             }
@@ -287,7 +288,7 @@
         );
 
         const itemTransition = prefersReducedMotion
-          ? { duration: 0.12, ease: "easeOut" }
+          ? { duration: 0 }
           : mode === "scale"
             ? {
                 type: "spring",
@@ -318,7 +319,7 @@
             initial: { opacity: 0, y: 12, scale: 0.99 },
             animate: { opacity: entranceReady ? 1 : 0, y: entranceReady ? 0 : 12, scale: entranceReady ? 1 : 0.99 },
             transition: {
-              duration: motionMode === "calm" ? 0.36 : 0.48,
+              duration: prefersReducedMotion ? 0 : motionMode === "calm" ? 0.36 : 0.48,
               delay: motionMode === "calm" ? 0.2 : 0.3,
               ease: utilityEase
             },
@@ -444,7 +445,7 @@
             initial: { opacity: 0, y: 10, scale: 0.98 },
             animate: { opacity: entranceReady ? 1 : 0, y: entranceReady ? 0 : 10, scale: entranceReady ? 1 : 0.98 },
             transition: {
-              duration: motionMode === "calm" ? 0.34 : 0.42,
+              duration: prefersReducedMotion ? 0 : motionMode === "calm" ? 0.34 : 0.42,
               delay: motionMode === "calm" ? 0.12 : 0.18,
               ease: [0.22, 1, 0.36, 1]
             },
@@ -531,13 +532,13 @@
                 opacity: 1,
                 y: 0,
                 scale: 1,
-                transition: { duration: 0.14, ease: [0.23, 1, 0.32, 1] }
+                transition: { duration: 0 }
               },
               exit: {
                 opacity: 0,
                 y: 12,
                 scale: 0.985,
-                transition: { duration: 0.14, ease: [0.23, 1, 0.32, 1] }
+                transition: { duration: 0 }
               }
             }
           : {
@@ -643,7 +644,7 @@
                     animate: { opacity: 1 },
                     exit: { opacity: 0 },
                     transition: {
-                      duration: prefersReducedMotion ? 0.12 : 0.3,
+                      duration: prefersReducedMotion ? 0 : 0.3,
                       ease: [0.22, 1, 0.36, 1]
                     }
                   },
@@ -654,7 +655,7 @@
                     animate: { clipPath: `circle(${Math.hypot(window.innerWidth, window.innerHeight)}px at ${origin.x}px ${origin.y}px)` },
                     exit: { clipPath: `circle(0px at ${origin.x}px ${origin.y}px)` },
                     transition: prefersReducedMotion
-                      ? { duration: 0.16, ease: [0.22, 1, 0.36, 1] }
+                      ? { duration: 0 }
                       : {
                           duration: 0.48,
                           ease: [0.32, 0.72, 0, 1]
@@ -725,6 +726,7 @@
       ];
 
       function MotionExamples({ entranceReady, motionMode }) {
+        const prefersReducedMotion = useReducedMotion();
         const [index, setIndex] = useState(0);
         const [progressStep, setProgressStep] = useState(0);
         const [progressDirection, setProgressDirection] = useState(1);
@@ -739,7 +741,7 @@
         }, [index]);
 
         useEffect(() => {
-          if (current.id !== "progress") return;
+          if (current.id !== "progress" || prefersReducedMotion) return;
           const id = window.setInterval(() => {
             setProgressStep((prev) => {
               const next = prev + progressDirection;
@@ -755,13 +757,17 @@
             });
           }, 980);
           return () => window.clearInterval(id);
-        }, [current.id, progressDirection]);
+        }, [current.id, prefersReducedMotion, progressDirection]);
 
         useEffect(() => {
           if (current.id !== "success") return;
+          if (prefersReducedMotion) {
+            setShowSuccess(true);
+            return;
+          }
           const id = window.setTimeout(() => setShowSuccess(true), 80);
           return () => window.clearTimeout(id);
-        }, [current.id]);
+        }, [current.id, prefersReducedMotion]);
 
         const next = () => setIndex((prev) => (prev + 1) % SIMPLE_MOTION_LIST.length);
         const prev = () => setIndex((prev) => (prev - 1 + SIMPLE_MOTION_LIST.length) % SIMPLE_MOTION_LIST.length);
@@ -794,7 +800,7 @@
                       opacity: step <= progressStep ? 1 : 0.18
                     },
                     transition: {
-                      duration: 0.9,
+                      duration: prefersReducedMotion ? 0 : 0.9,
                       ease: [0.32, 0.72, 0, 1]
                     }
                   })
@@ -823,7 +829,7 @@
                   strokeWidth: "1.5",
                   initial: { pathLength: 0, opacity: 0.5 },
                   animate: { pathLength: showSuccess ? 1 : 0, opacity: showSuccess ? 1 : 0.5 },
-                  transition: { duration: 0.36, ease: [0.22, 1, 0.36, 1] }
+                  transition: { duration: prefersReducedMotion ? 0 : 0.36, ease: [0.22, 1, 0.36, 1] }
                 }),
                 React.createElement(motion.path, {
                   d: "M7 12.5l3.1 3.1L17 8.8",
@@ -833,7 +839,11 @@
                   strokeLinejoin: "round",
                   initial: { pathLength: 0, opacity: 0 },
                   animate: { pathLength: showSuccess ? 1 : 0, opacity: showSuccess ? 1 : 0 },
-                  transition: { duration: 0.5, delay: 0.08, ease: [0.22, 1, 0.36, 1] }
+                  transition: {
+                    duration: prefersReducedMotion ? 0 : 0.5,
+                    delay: prefersReducedMotion ? 0 : 0.08,
+                    ease: [0.22, 1, 0.36, 1]
+                  }
                 })
               )
             );
@@ -849,7 +859,13 @@
               whileHover: current.name === "Hover Lift" ? { y: -3, scale: 1.02 } : undefined,
               whileTap: current.name === "Press Down" ? { scale: 0.96 } : undefined,
               transition: {
-                duration: current.name === "Page Enter" ? 0.42 : current.name === "Press Down" ? 0.11 : 0.16,
+                duration: prefersReducedMotion
+                  ? 0
+                  : current.name === "Page Enter"
+                    ? 0.42
+                    : current.name === "Press Down"
+                      ? 0.11
+                      : 0.16,
                 ease: [0.22, 1, 0.36, 1]
               }
             },
@@ -870,7 +886,7 @@
               initial: { opacity: 0, y: 10, scale: 0.99 },
               animate: { opacity: entranceReady ? 1 : 0, y: entranceReady ? 0 : 10, scale: entranceReady ? 1 : 0.99 },
               transition: {
-                duration: motionMode === "calm" ? 0.34 : 0.42,
+                duration: prefersReducedMotion ? 0 : motionMode === "calm" ? 0.34 : 0.42,
                 delay: motionMode === "calm" ? 0.12 : 0.16,
                 ease: [0.22, 1, 0.36, 1]
               }
@@ -894,7 +910,7 @@
                     initial: { opacity: 0, y: 6 },
                     animate: { opacity: 1, y: 0 },
                     exit: { opacity: 0, y: -6 },
-                    transition: { duration: 0.2, ease: [0.22, 1, 0.36, 1] }
+                    transition: { duration: prefersReducedMotion ? 0 : 0.2, ease: [0.22, 1, 0.36, 1] }
                   },
                   renderExample()
                 )
@@ -921,21 +937,30 @@
 
       function App() {
         const motionMode = "normal";
-        const [entranceReady, setEntranceReady] = useState(false);
+        const prefersReducedMotion = useReducedMotion();
+        const [entranceReady, setEntranceReady] = useState(() => Boolean(prefersReducedMotion));
 
         useEffect(() => {
+          if (prefersReducedMotion) {
+            setEntranceReady(true);
+            return;
+          }
           const id = requestAnimationFrame(() => setEntranceReady(true));
           return () => cancelAnimationFrame(id);
-        }, []);
+        }, [prefersReducedMotion]);
 
         return React.createElement(
-          React.Fragment,
-          null,
-          React.createElement(TopCornerProgress, { motionMode, entranceReady }),
-          React.createElement(UnifiedLoadingPanel, { motionMode, entranceReady }),
-          React.createElement(ToastPanel, { motionMode, entranceReady }),
-          React.createElement(MotionExamples, { motionMode, entranceReady }),
-          React.createElement(EmilModalDemo)
+          MotionConfig,
+          { reducedMotion: "user" },
+          React.createElement(
+            React.Fragment,
+            null,
+            React.createElement(TopCornerProgress, { motionMode, entranceReady }),
+            React.createElement(UnifiedLoadingPanel, { motionMode, entranceReady }),
+            React.createElement(ToastPanel, { motionMode, entranceReady }),
+            React.createElement(MotionExamples, { motionMode, entranceReady }),
+            React.createElement(EmilModalDemo)
+          )
         );
       }
 
