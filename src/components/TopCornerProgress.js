@@ -10,6 +10,8 @@ export function TopCornerProgress({ entranceReady, motionMode }) {
       className: "top-progress",
       role: "progressbar",
       "aria-label": "Loading",
+      "aria-valuemin": 0,
+      "aria-valuemax": 100,
       "aria-valuetext": "In progress",
       initial: { opacity: 0, y: -6 },
       animate: { opacity: entranceReady ? 1 : 0, y: entranceReady ? 0 : -6 },

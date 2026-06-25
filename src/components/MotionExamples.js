@@ -186,6 +186,7 @@ export function MotionExamples({ entranceReady, motionMode }) {
         className: `motion-example-panel${drag.dragging ? " dragging" : ""}`,
         style: { left: `${drag.pos.x}px`, top: `${drag.pos.y}px` },
         onPointerDown: drag.onPointerDown,
+        "aria-label": `Motion example: ${current.name}`,
         initial: { opacity: 0, y: 10, scale: 0.99 },
         animate: { opacity: entranceReady ? 1 : 0, y: entranceReady ? 0 : 10, scale: entranceReady ? 1 : 0.99 },
         transition: panelTransition({ motionMode, prefersReducedMotion })
@@ -221,12 +222,24 @@ export function MotionExamples({ entranceReady, motionMode }) {
         { className: "motion-example-controls" },
         React.createElement(
           "button",
-          { className: "toast-control", type: "button", onPointerDown: stopDragOnControl, onClick: prev },
+          {
+            className: "toast-control",
+            type: "button",
+            "aria-label": "Show previous motion example",
+            onPointerDown: stopDragOnControl,
+            onClick: prev
+          },
           "Prev"
         ),
         React.createElement(
           "button",
-          { className: "toast-control", type: "button", onPointerDown: stopDragOnControl, onClick: next },
+          {
+            className: "toast-control",
+            type: "button",
+            "aria-label": "Show next motion example",
+            onPointerDown: stopDragOnControl,
+            onClick: next
+          },
           "Next"
         )
       )

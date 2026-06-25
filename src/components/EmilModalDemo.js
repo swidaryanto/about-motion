@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useId, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { DELAY, DURATION, EASE, duration } from "../lib/motionTokens.js";
 
@@ -12,7 +12,9 @@ function getFocusableElements(container) {
     "textarea:not([disabled])",
     "[tabindex]:not([tabindex='-1'])"
   ];
-  return Array.from(container.querySelectorAll(selectors.join(","))).filter((el) => !el.hasAttribute("disabled"));
+  return Array.from(container.querySelectorAll(selectors.join(","))).filter(
+    (el) => !el.hasAttribute("disabled") && el.getAttribute("aria-hidden") !== "true"
+  );
 }
 
 export function EmilModalDemo() {
@@ -20,6 +22,8 @@ export function EmilModalDemo() {
   const [origin, setOrigin] = useState({ x: window.innerWidth * 0.5, y: window.innerHeight * 0.5 });
   const triggerRef = useRef(null);
   const modalRef = useRef(null);
+  const titleId = useId();
+  const descriptionId = useId();
   const prefersReducedMotion = useReducedMotion();
   const modalCardVariants = prefersReducedMotion
     ? {
@@ -147,6 +151,7 @@ export function EmilModalDemo() {
             React.createElement(motion.div, {
               className: "ek-modal-bloom",
               onClick: () => setOpen(false),
+              role: "presentation",
               initial: { clipPath: `circle(0px at ${origin.x}px ${origin.y}px)` },
               animate: { clipPath: `circle(${Math.hypot(window.innerWidth, window.innerHeight)}px at ${origin.x}px ${origin.y}px)` },
               exit: { clipPath: `circle(0px at ${origin.x}px ${origin.y}px)` },
@@ -164,7 +169,8 @@ export function EmilModalDemo() {
                 className: "ek-modal-card",
                 role: "dialog",
                 "aria-modal": "true",
-                "aria-label": "Unique modal animation",
+                "aria-labelledby": titleId,
+                "aria-describedby": descriptionId,
                 tabIndex: -1,
                 variants: modalCardVariants,
                 initial: "hidden",
@@ -174,10 +180,10 @@ export function EmilModalDemo() {
               React.createElement(
                 "header",
                 { className: "ek-modal-head" },
-                React.createElement("h3", { className: "ek-modal-title" }, "Modal with Trigger-Bloom Entrance"),
+                React.createElement("h3", { id: titleId, className: "ek-modal-title" }, "Modal with Trigger-Bloom Entrance"),
                 React.createElement(
                   "p",
-                  { className: "ek-modal-body" },
+                  { id: descriptionId, className: "ek-modal-body" },
                   "The backdrop grows from the trigger first, then the card settles in. It feels connected and less abrupt."
                 )
               ),
@@ -186,7 +192,12 @@ export function EmilModalDemo() {
                 { className: "ek-modal-actions" },
                 React.createElement(
                   "button",
-                  { className: "toast-control", type: "button", onClick: () => setOpen(false) },
+                  {
+                    className: "toast-control",
+                    type: "button",
+                    "aria-label": "Close modal",
+                    onClick: () => setOpen(false)
+                  },
                   "Close"
                 )
               )
