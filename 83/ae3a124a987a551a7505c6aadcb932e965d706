@@ -1,0 +1,25 @@
+styles/loading.css
+  s_f8ebbc3ee43de6::t_f7229480e58ede 19,42
+styles/toast.css
+  s_f8ebbc3ee43de6::t_f7229480e58ede 4,6-7,48,50,52,88-90,104,116,128
+styles/base.css
+  s_f8ebbc3ee43de6::t_f7229480e58ede 9-25,66,70,80,89,97
+styles/motion.css
+  s_f8ebbc3ee43de6::t_f7229480e58ede 11,21,27,29-30,33,49,54,61,78,83,114,118,130,143-144,153-154,237,276,284
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.13",
+  "base_commit_sha": "83ae3a124a987a551a7505c6aadcb932e965d706",
+  "prompts": {},
+  "sessions": {
+    "s_f8ebbc3ee43de6": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ef9f1-0505-7530-b90e-0ded7a8fe4b3",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Septian Widaryanto <septianwidaryanto@gmail.com>"
+    }
+  }
+}
