@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useDraggablePosition } from "../hooks/useDraggablePosition.js";
 import { getDefaultMotionExamplesPos } from "../lib/layout.js";
+import { DELAY, DURATION, EASE, duration, panelTransition } from "../lib/motionTokens.js";
 
 const SIMPLE_MOTION_LIST = [
   {
@@ -102,8 +103,8 @@ export function MotionExamples({ entranceReady, motionMode }) {
                 opacity: step <= progressStep ? 1 : 0.18
               },
               transition: {
-                duration: prefersReducedMotion ? 0 : 0.9,
-                ease: [0.32, 0.72, 0, 1]
+                duration: duration(DURATION.progress, prefersReducedMotion),
+                ease: EASE.emphasized
               }
             })
           )
@@ -131,7 +132,7 @@ export function MotionExamples({ entranceReady, motionMode }) {
             strokeWidth: "1.5",
             initial: { pathLength: 0, opacity: 0.5 },
             animate: { pathLength: showSuccess ? 1 : 0, opacity: showSuccess ? 1 : 0.5 },
-            transition: { duration: prefersReducedMotion ? 0 : 0.36, ease: [0.22, 1, 0.36, 1] }
+            transition: { duration: duration(DURATION.base, prefersReducedMotion), ease: EASE.standard }
           }),
           React.createElement(motion.path, {
             d: "M7 12.5l3.1 3.1L17 8.8",
@@ -142,9 +143,9 @@ export function MotionExamples({ entranceReady, motionMode }) {
             initial: { pathLength: 0, opacity: 0 },
             animate: { pathLength: showSuccess ? 1 : 0, opacity: showSuccess ? 1 : 0 },
             transition: {
-              duration: prefersReducedMotion ? 0 : 0.5,
-              delay: prefersReducedMotion ? 0 : 0.08,
-              ease: [0.22, 1, 0.36, 1]
+              duration: duration(DURATION.draw, prefersReducedMotion),
+              delay: prefersReducedMotion ? DELAY.none : DELAY.successPath,
+              ease: EASE.standard
             }
           })
         )
@@ -162,13 +163,13 @@ export function MotionExamples({ entranceReady, motionMode }) {
         whileTap: current.name === "Press Down" ? { scale: 0.96 } : undefined,
         transition: {
           duration: prefersReducedMotion
-            ? 0
+            ? DURATION.instant
             : current.name === "Page Enter"
               ? 0.42
               : current.name === "Press Down"
-                ? 0.11
-                : 0.16,
-          ease: [0.22, 1, 0.36, 1]
+                ? DURATION.press
+                : DURATION.fast,
+          ease: EASE.standard
         }
       },
       current.name
@@ -187,11 +188,7 @@ export function MotionExamples({ entranceReady, motionMode }) {
         onPointerDown: drag.onPointerDown,
         initial: { opacity: 0, y: 10, scale: 0.99 },
         animate: { opacity: entranceReady ? 1 : 0, y: entranceReady ? 0 : 10, scale: entranceReady ? 1 : 0.99 },
-        transition: {
-          duration: prefersReducedMotion ? 0 : motionMode === "calm" ? 0.34 : 0.42,
-          delay: motionMode === "calm" ? 0.12 : 0.16,
-          ease: [0.22, 1, 0.36, 1]
-        }
+        transition: panelTransition({ motionMode, prefersReducedMotion })
       },
       React.createElement(
         "header",
@@ -212,7 +209,7 @@ export function MotionExamples({ entranceReady, motionMode }) {
               initial: { opacity: 0, y: 6 },
               animate: { opacity: 1, y: 0 },
               exit: { opacity: 0, y: -6 },
-              transition: { duration: prefersReducedMotion ? 0 : 0.2, ease: [0.22, 1, 0.36, 1] }
+              transition: { duration: duration(DURATION.fast, prefersReducedMotion), ease: EASE.standard }
             },
             renderExample()
           )

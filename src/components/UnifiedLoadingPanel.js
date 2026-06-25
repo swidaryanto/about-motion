@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useDraggablePosition } from "../hooks/useDraggablePosition.js";
 import { getDefaultLoadingPos } from "../lib/layout.js";
+import { DELAY, DURATION, panelTransition } from "../lib/motionTokens.js";
 
 export function UnifiedLoadingPanel({ motionMode, entranceReady }) {
   const frames = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"];
@@ -35,11 +36,12 @@ export function UnifiedLoadingPanel({ motionMode, entranceReady }) {
       onPointerDown: drag.onPointerDown,
       initial: { opacity: 0, y: 10, scale: 0.98 },
       animate: { opacity: entranceReady ? 1 : 0, y: entranceReady ? 0 : 10, scale: entranceReady ? 1 : 0.98 },
-      transition: {
-        duration: prefersReducedMotion ? 0 : motionMode === "calm" ? 0.34 : 0.42,
-        delay: motionMode === "calm" ? 0.12 : 0.18,
-        ease: [0.22, 1, 0.36, 1]
-      },
+      transition: panelTransition({
+        delay: DELAY.loading,
+        duration: DURATION.panel,
+        motionMode,
+        prefersReducedMotion
+      }),
       "aria-label": "Loading examples"
     },
     React.createElement(
