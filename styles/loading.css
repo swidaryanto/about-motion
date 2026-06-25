@@ -16,7 +16,7 @@
 .loading-suite-panel {
   position: fixed;
   width: min(420px, calc(100vw - 44px));
-  border-radius: 16px;
+  border-radius: var(--radius-panel-lg);
   border: 1px solid var(--panel-line);
   background: rgba(243, 243, 243, 0.94);
   box-shadow: none;
@@ -39,7 +39,7 @@
 }
 
 .loading-suite-row + .loading-suite-row {
-  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  border-top: 1px solid color-mix(in srgb, var(--text-strong) 8%, transparent);
 }
 
 .braille-panel {
