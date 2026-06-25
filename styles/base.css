@@ -56,6 +56,33 @@ body {
   backdrop-filter: blur(12px);
 }
 
+.demo-panel-copy {
+  display: grid;
+  gap: 4px;
+  padding: 12px 12px 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.demo-panel-title,
+.demo-panel-description {
+  margin: 0;
+}
+
+.demo-panel-title {
+  color: #1f1f1f;
+  font-size: 13px;
+  font-weight: 650;
+  letter-spacing: -0.005em;
+}
+
+.demo-panel-description {
+  max-width: 30rem;
+  color: #5d5d5d;
+  font-size: 12px;
+  line-height: 1.35;
+  letter-spacing: -0.005em;
+}
+
 body::before,
 body::after {
   content: "";
