@@ -1,0 +1,25 @@
+src/components/ToastPanel.js
+  s_f8ebbc3ee43de6::t_31043df1981d84 147-148,166-167,187,202,219
+src/components/EmilModalDemo.js
+  s_f8ebbc3ee43de6::t_31043df1981d84 1,15-17,25-26,154,172-173,183,186,195-200
+src/components/TopCornerProgress.js
+  s_f8ebbc3ee43de6::t_31043df1981d84 13-14
+src/components/MotionExamples.js
+  s_f8ebbc3ee43de6::t_31043df1981d84 189,225-231,236-242
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.13",
+  "base_commit_sha": "8432091f70f336be01f97141710d96cabd9effb1",
+  "prompts": {},
+  "sessions": {
+    "s_f8ebbc3ee43de6": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ef9f1-0505-7530-b90e-0ded7a8fe4b3",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Septian Widaryanto <septianwidaryanto@gmail.com>"
+    }
+  }
+}
