@@ -47,6 +47,8 @@
   .loading-suite-panel {
     position: relative;
     inset: auto !important;
+    left: auto !important;
+    top: auto !important;
     width: min(420px, calc(100vw - 16px));
     border-radius: 14px;
     cursor: default;
@@ -71,6 +73,8 @@
   .toast-panel {
     position: relative;
     inset: auto !important;
+    left: auto !important;
+    top: auto !important;
     width: min(420px, calc(100vw - 16px));
     cursor: default;
     touch-action: auto;
@@ -146,6 +150,8 @@
   .motion-example-panel {
     position: relative;
     inset: auto !important;
+    left: auto !important;
+    top: auto !important;
     width: min(420px, calc(100vw - 16px));
     cursor: default;
     touch-action: auto;

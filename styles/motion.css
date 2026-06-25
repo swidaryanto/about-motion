@@ -71,6 +71,53 @@
   background: linear-gradient(160deg, #f7f7f7 0%, #efefef 100%);
 }
 
+.motion-example-copy {
+  display: grid;
+  gap: 8px;
+  padding: 10px 12px;
+  border-top: 1px solid #e3e3e3;
+}
+
+.motion-example-note {
+  margin: 0;
+  color: #4b4b4b;
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.motion-example-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+}
+
+.motion-example-meta div {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid #e0e0e0;
+  border-radius: 999px;
+  background: #f8f8f8;
+  padding: 4px 7px;
+}
+
+.motion-example-meta dt,
+.motion-example-meta dd {
+  margin: 0;
+  font-size: 10px;
+  line-height: 1;
+  font-family: "IBM Plex Mono", "SF Mono", "JetBrains Mono", monospace;
+}
+
+.motion-example-meta dt {
+  color: #777;
+}
+
+.motion-example-meta dd {
+  color: #2f2f2f;
+}
+
 .motion-example-block {
   width: 120px;
   height: 36px;

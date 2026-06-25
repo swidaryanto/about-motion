@@ -137,6 +137,12 @@ export function ToastPanel({ motionMode, entranceReady }) {
       "aria-label": "Toast interaction"
     },
     React.createElement(
+      "header",
+      { className: "demo-panel-copy" },
+      React.createElement("h2", { className: "demo-panel-title" }, "Toast transitions"),
+      React.createElement("p", { className: "demo-panel-description" }, "Compare how temporary feedback enters, stacks, and leaves.")
+    ),
+    React.createElement(
       "div",
       { className: "toast-stage" },
       React.createElement(

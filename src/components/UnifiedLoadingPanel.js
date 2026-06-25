@@ -45,6 +45,12 @@ export function UnifiedLoadingPanel({ motionMode, entranceReady }) {
       "aria-label": "Loading examples"
     },
     React.createElement(
+      "header",
+      { className: "demo-panel-copy" },
+      React.createElement("h2", { className: "demo-panel-title" }, "Loading states"),
+      React.createElement("p", { className: "demo-panel-description" }, "Small loops for moments when content is not ready yet.")
+    ),
+    React.createElement(
       "div",
       { className: "loading-suite-row" },
       React.createElement(

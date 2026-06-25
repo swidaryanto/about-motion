@@ -215,8 +215,18 @@ export function MotionExamples({ entranceReady, motionMode }) {
             renderExample()
           )
         )
-      )
-      ,
+      ),
+      React.createElement(
+        "div",
+        { className: "motion-example-copy" },
+        React.createElement("p", { className: "motion-example-note" }, current.note),
+        React.createElement(
+          "dl",
+          { className: "motion-example-meta", "aria-label": "Motion timing details" },
+          React.createElement("div", null, React.createElement("dt", null, "Duration"), React.createElement("dd", null, current.duration)),
+          React.createElement("div", null, React.createElement("dt", null, "Easing"), React.createElement("dd", null, current.easing))
+        )
+      ),
       React.createElement(
         "div",
         { className: "motion-example-controls" },
