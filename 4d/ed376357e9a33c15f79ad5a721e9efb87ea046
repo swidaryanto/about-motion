@@ -1,0 +1,23 @@
+styles/base.css
+  s_f8ebbc3ee43de6::t_f6b50b079382b7 43-58
+src/main.js
+  s_f8ebbc3ee43de6::t_21c7c01434e425 1,4-6,8,10-12,16
+src/PlaygroundApp.js
+  s_f8ebbc3ee43de6::t_21c7c01434e425 1-36
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.13",
+  "base_commit_sha": "4ded376357e9a33c15f79ad5a721e9efb87ea046",
+  "prompts": {},
+  "sessions": {
+    "s_f8ebbc3ee43de6": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ef9f1-0505-7530-b90e-0ded7a8fe4b3",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Septian Widaryanto <septianwidaryanto@gmail.com>"
+    }
+  }
+}
