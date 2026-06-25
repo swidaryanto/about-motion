@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { DELAY, DURATION, EASE, duration } from "../lib/motionTokens.js";
 
 function getFocusableElements(container) {
   if (!container) return [];
@@ -47,7 +48,7 @@ export function EmilModalDemo() {
             stiffness: 280,
             damping: 26,
             mass: 0.9,
-            delay: 0.05
+            delay: DELAY.modalCard
           }
         },
         exit: {
@@ -56,10 +57,10 @@ export function EmilModalDemo() {
           opacity: [1, 1, 0],
           filter: ["blur(0px)", "blur(0.2px)", "blur(0.8px)"],
           transition: {
-            y: { duration: 0.34, ease: [0.22, 1, 0.36, 1], times: [0, 0.72, 1] },
-            scale: { duration: 0.34, ease: [0.22, 1, 0.36, 1], times: [0, 0.72, 1] },
-            opacity: { duration: 0.34, ease: [0.22, 1, 0.36, 1], times: [0, 0.72, 1] },
-            filter: { duration: 0.34, ease: [0.22, 1, 0.36, 1], times: [0, 0.72, 1] }
+            y: { duration: DURATION.base, ease: EASE.standard, times: [0, 0.72, 1] },
+            scale: { duration: DURATION.base, ease: EASE.standard, times: [0, 0.72, 1] },
+            opacity: { duration: DURATION.base, ease: EASE.standard, times: [0, 0.72, 1] },
+            filter: { duration: DURATION.base, ease: EASE.standard, times: [0, 0.72, 1] }
           }
         }
       };
@@ -139,8 +140,8 @@ export function EmilModalDemo() {
               animate: { opacity: 1 },
               exit: { opacity: 0 },
               transition: {
-                duration: prefersReducedMotion ? 0 : 0.3,
-                ease: [0.22, 1, 0.36, 1]
+                duration: duration(DURATION.base, prefersReducedMotion),
+                ease: EASE.standard
               }
             },
             React.createElement(motion.div, {
@@ -152,8 +153,8 @@ export function EmilModalDemo() {
               transition: prefersReducedMotion
                 ? { duration: 0 }
                 : {
-                    duration: 0.48,
-                    ease: [0.32, 0.72, 0, 1]
+                    duration: DURATION.panelSlow,
+                    ease: EASE.emphasized
                   }
             }),
             React.createElement(

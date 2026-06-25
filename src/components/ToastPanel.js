@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useDraggablePosition } from "../hooks/useDraggablePosition.js";
 import { getDefaultToastPos } from "../lib/layout.js";
+import { DELAY, DURATION, panelTransition, toastSpring } from "../lib/motionTokens.js";
 
 export function ToastPanel({ motionMode, entranceReady }) {
   const drag = useDraggablePosition(getDefaultToastPos);
@@ -13,7 +14,6 @@ export function ToastPanel({ motionMode, entranceReady }) {
   const idleBreathTimerRef = useRef(0);
   const prefersReducedMotion = useReducedMotion();
   const toastDurationMs = prefersReducedMotion ? 2200 : 3200;
-  const utilityEase = [0.22, 1, 0.36, 1];
 
   const clearIdleBreathTimer = () => {
     if (!idleBreathTimerRef.current) return;
@@ -113,23 +113,7 @@ export function ToastPanel({ motionMode, entranceReady }) {
     [mode, prefersReducedMotion]
   );
 
-  const itemTransition = prefersReducedMotion
-    ? { duration: 0 }
-    : mode === "scale"
-      ? {
-          type: "spring",
-          stiffness: motionMode === "calm" ? 200 : 240,
-          damping: motionMode === "calm" ? 30 : 28,
-          mass: 0.95,
-          opacity: { duration: motionMode === "calm" ? 0.14 : 0.18, ease: utilityEase }
-        }
-      : {
-          type: "spring",
-          stiffness: motionMode === "calm" ? 250 : 300,
-          damping: motionMode === "calm" ? 32 : 30,
-          mass: 0.9,
-          opacity: { duration: motionMode === "calm" ? 0.16 : 0.2, ease: utilityEase }
-        };
+  const itemTransition = toastSpring(motionMode, prefersReducedMotion, mode);
 
   const stopDragOnControl = (event) => {
     event.stopPropagation();
@@ -144,11 +128,12 @@ export function ToastPanel({ motionMode, entranceReady }) {
       onPointerDown: drag.onPointerDown,
       initial: { opacity: 0, y: 12, scale: 0.99 },
       animate: { opacity: entranceReady ? 1 : 0, y: entranceReady ? 0 : 12, scale: entranceReady ? 1 : 0.99 },
-      transition: {
-        duration: prefersReducedMotion ? 0 : motionMode === "calm" ? 0.36 : 0.48,
-        delay: motionMode === "calm" ? 0.2 : 0.3,
-        ease: utilityEase
-      },
+      transition: panelTransition({
+        delay: DELAY.toast,
+        duration: DURATION.panelSlow,
+        motionMode,
+        prefersReducedMotion
+      }),
       "aria-label": "Toast interaction"
     },
     React.createElement(
