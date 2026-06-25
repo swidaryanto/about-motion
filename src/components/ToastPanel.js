@@ -144,7 +144,8 @@ export function ToastPanel({ motionMode, entranceReady }) {
         {
           className: `toast-layer${isIdleBreathing && toasts.length > 1 ? " idle-breathe" : ""}`,
           "aria-live": "polite",
-          "aria-atomic": "true"
+          "aria-atomic": "false",
+          role: "status"
         },
         React.createElement(
           AnimatePresence,
@@ -162,7 +163,8 @@ export function ToastPanel({ motionMode, entranceReady }) {
                 exit: "exit",
                 variants,
                 transition: itemTransition,
-                style: { zIndex: 30 - idx }
+                style: { zIndex: 30 - idx },
+                "aria-label": `Toast notification ${idx + 1}: ${toast.text}`
               },
               React.createElement("span", null, toast.text)
             )
@@ -182,6 +184,7 @@ export function ToastPanel({ motionMode, entranceReady }) {
             className: "toast-control",
             type: "button",
             "data-no-drag": "true",
+            "aria-label": "Add toast notification",
             onPointerDown: stopDragOnControl,
             onClick: addToast
           },
@@ -196,7 +199,7 @@ export function ToastPanel({ motionMode, entranceReady }) {
               className: "toast-control",
               value: mode,
               onChange: (e) => setMode(e.target.value),
-              "aria-label": "Transition mode"
+              "aria-label": "Toast transition mode"
             },
             React.createElement("option", { value: "slide" }, "Transitions"),
             React.createElement("option", { value: "fade" }, "Fade"),
@@ -213,6 +216,7 @@ export function ToastPanel({ motionMode, entranceReady }) {
             className: "toast-control toast-reset",
             type: "button",
             "data-no-drag": "true",
+            "aria-label": "Reset toast notifications",
             onPointerDown: stopDragOnControl,
             onClick: resetToasts
           },
