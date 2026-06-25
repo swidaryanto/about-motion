@@ -1,10 +1,10 @@
 .toast-panel {
   position: fixed;
   width: min(420px, calc(100vw - 44px));
-  border-radius: 14px;
+  border-radius: var(--radius-panel);
   border: 1px solid var(--panel-line);
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(8px) saturate(120%);
+  background: var(--surface-glass);
+  backdrop-filter: var(--blur-panel);
   box-shadow: none;
   overflow: hidden;
   cursor: grab;
@@ -45,11 +45,11 @@
   right: 14px;
   top: 50%;
   overflow: hidden;
-  border-radius: 12px;
+  border-radius: var(--radius-toast);
   border: 1px solid #dbdbdb;
-  background: #f8f8f8;
+  background: var(--surface-control);
   padding: 12px 14px;
-  color: #1d1d1d;
+  color: var(--text-strong);
   font-size: 15px;
   font-weight: 500;
   line-height: 1.3;
@@ -85,9 +85,9 @@
   min-width: 96px;
   padding: 0 10px;
   border: 1px solid var(--panel-line);
-  border-radius: 9px;
-  background: #f8f8f8;
-  color: #232323;
+  border-radius: var(--radius-control);
+  background: var(--surface-control);
+  color: var(--text-body);
   font-size: 13px;
   font-weight: 700;
   line-height: 1;
@@ -101,7 +101,7 @@
 }
 
 .toast-control:hover {
-  background: #efefef;
+  background: var(--surface-control-hover);
   box-shadow: none;
 }
 
@@ -113,7 +113,7 @@
 .modal-demo-button:focus-visible,
 .diff-handle:focus-visible,
 select.toast-control:focus-visible {
-  outline: 2px solid #111111;
+  outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
 }
 
@@ -125,7 +125,7 @@ select.toast-control:focus-visible {
   border-radius: 0;
   background: transparent;
   box-shadow: none;
-  color: #b25e5e;
+  color: var(--danger-text);
   display: inline-flex;
   align-items: center;
   justify-content: center;
