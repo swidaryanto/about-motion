@@ -1,0 +1,30 @@
+src/lib/motionTokens.js
+  s_f8ebbc3ee43de6::t_6aa90c7cff9425 1-53
+src/components/MotionExamples.js
+  s_f8ebbc3ee43de6::t_6aa90c7cff9425 5,106-107,135,146-148,166,170-172,191,212
+src/components/TopCornerProgress.js
+  s_f8ebbc3ee43de6::t_6aa90c7cff9425 3,16-21
+src/components/ToastPanel.js
+  s_f8ebbc3ee43de6::t_6aa90c7cff9425 116,131-136
+  s_f8ebbc3ee43de6::t_c7a10eb57f8266 5
+src/components/UnifiedLoadingPanel.js
+  s_f8ebbc3ee43de6::t_6aa90c7cff9425 5,39-44
+src/components/EmilModalDemo.js
+  s_f8ebbc3ee43de6::t_6aa90c7cff9425 3,51,60-63,143-144,156-157
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.13",
+  "base_commit_sha": "6ea7994ef65540f77cbbf5e6bf40606409ca8c78",
+  "prompts": {},
+  "sessions": {
+    "s_f8ebbc3ee43de6": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ef9f1-0505-7530-b90e-0ded7a8fe4b3",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Septian Widaryanto <septianwidaryanto@gmail.com>"
+    }
+  }
+}
