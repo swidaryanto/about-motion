@@ -1,0 +1,29 @@
+styles/responsive.css
+  s_f8ebbc3ee43de6::t_5d624c47f7138b 50-51,76-77,153-154
+src/components/MotionExamples.js
+  s_f8ebbc3ee43de6::t_f1e51c34397eb3 218-229
+src/components/ToastPanel.js
+  s_f8ebbc3ee43de6::t_f1e51c34397eb3 140-144
+styles/base.css
+  s_f8ebbc3ee43de6::t_f1e51c34397eb3 59-85
+src/components/UnifiedLoadingPanel.js
+  s_f8ebbc3ee43de6::t_f1e51c34397eb3 48-52
+styles/motion.css
+  s_f8ebbc3ee43de6::t_f1e51c34397eb3 74-120
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.13",
+  "base_commit_sha": "1cdb3284d670cf12d4842a3b637c11b4c23c8e9a",
+  "prompts": {},
+  "sessions": {
+    "s_f8ebbc3ee43de6": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ef9f1-0505-7530-b90e-0ded7a8fe4b3",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Septian Widaryanto <septianwidaryanto@gmail.com>"
+    }
+  }
+}
