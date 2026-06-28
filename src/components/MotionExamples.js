@@ -7,10 +7,10 @@ import { DELAY, DURATION, EASE, duration, panelTransition } from "../lib/motionT
 const SIMPLE_MOTION_LIST = [
   {
     id: "skeleton",
-    name: "Skeleton Shimmer",
-    duration: "1100ms",
-    easing: "linear",
-    note: "Use while content is loading."
+    name: "About Page Entrance",
+    duration: "400ms",
+    easing: "easeOut",
+    note: "Use this for a clean about-page reveal: fade in, slide up 12px, keep it subtle."
   },
   {
     id: "progress",
@@ -79,11 +79,20 @@ export function MotionExamples({ entranceReady, motionMode }) {
   const renderExample = () => {
     if (current.id === "skeleton") {
       return React.createElement(
-        "div",
-        { className: "motion-skeleton" },
-        React.createElement("div", { className: "skeleton-line" }),
-        React.createElement("div", { className: "skeleton-line medium" }),
-        React.createElement("div", { className: "skeleton-line short" })
+        motion.div,
+        {
+          className: "motion-example-card",
+          initial: { opacity: 0, y: 12 },
+          animate: { opacity: 1, y: 0 },
+          transition: { duration: duration(0.4, prefersReducedMotion), ease: EASE.standard }
+        },
+        React.createElement("div", { className: "motion-example-kicker" }, "ABOUT"),
+        React.createElement("h3", { className: "motion-example-heading" }, "Simple entrance"),
+        React.createElement(
+          "p",
+          { className: "motion-example-body" },
+          "Fade in + slide up 12px. Clean, subtle, no drama."
+        )
       );
     }
 
