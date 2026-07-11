@@ -7,6 +7,8 @@
   --panel-bg: #f3f3f3;
   --panel-line: #d6d6d6;
   --line-subtle: #e3e3e3;
+  --control-line: #2563eb;
+  --control-line-hover: #1d4ed8;
   --surface-glass: rgba(255, 255, 255, 0.92);
   --surface-glass-strong: rgba(255, 255, 255, 0.96);
   --surface-control: #f8f8f8;
