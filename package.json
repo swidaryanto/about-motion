@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test:css-regression": "node tests/toast-focus-regression.mjs"
   },
   "engines": {
     "node": ">=20"
