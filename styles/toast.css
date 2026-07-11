@@ -84,7 +84,7 @@
   height: 36px;
   min-width: 96px;
   padding: 0 10px;
-  border: 1px solid var(--control-line);
+  border: 1px solid var(--panel-line);
   border-radius: var(--radius-control);
   background: var(--surface-control);
   color: var(--text-body);
@@ -102,7 +102,6 @@
 
 .toast-control:hover {
   background: var(--surface-control-hover);
-  border-color: var(--control-line-hover);
   box-shadow: none;
 }
 
