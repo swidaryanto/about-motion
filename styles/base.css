@@ -7,6 +7,8 @@
   --panel-bg: #f3f3f3;
   --panel-line: #d6d6d6;
   --line-subtle: #e3e3e3;
+  --control-line: #2563eb;
+  --control-line-hover: #1d4ed8;
   --surface-glass: rgba(255, 255, 255, 0.92);
   --surface-glass-strong: rgba(255, 255, 255, 0.96);
   --surface-control: #f8f8f8;
@@ -15,7 +17,7 @@
   --text-body: #333333;
   --text-muted: #5d5d5d;
   --text-soft: #777777;
-  --focus-ring: #111111;
+  --focus-ring: #2563eb;
   --danger-text: #b25e5e;
   --radius-panel: 14px;
   --radius-panel-lg: 16px;
