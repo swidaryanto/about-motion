@@ -113,8 +113,8 @@
 .modal-demo-button:focus-visible,
 .diff-handle:focus-visible,
 select.toast-control:focus-visible {
-  outline: 2px solid var(--focus-ring);
-  outline-offset: 2px;
+  outline: 1.5px solid var(--focus-ring);
+  outline-offset: 4px;
 }
 
 .toast-reset {
